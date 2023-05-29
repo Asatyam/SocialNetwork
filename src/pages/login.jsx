@@ -10,9 +10,33 @@ export default function Login(){
 
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
+    const [errors, setErrors] = useState();
+    const {auth, setAuth,message,setMessage} = useContext(AuthContext);
+    /*To do Client side validation */
 
-    const {auth, setAuth,user,setUser} = useContext(AuthContext);
+    const handleEmailChange = (e)=>{
+        setEmail(e.target.value);
+    }
+     const handlePasswordChange = (e)=>{
+        setPassword(e.target.value);
+    }
 
+    const handleSubmit = (e)=>{
+
+        e.preventDefault();
+        const body = {email, password};
+        axios.post('http://localhost:4000/api/login',body)
+        .then((res)=>{
+            setMessage(res.data);
+            setAuth(true);
+            localStorage.setItem('token',JSON.stringify(res.data.token));
+            setErrors('');
+        }).catch(err=>{
+            console.log(err.response.data.info);
+            setErrors(err.response.data.info);
+        })
+    }
+    console.log(message);
     return(
        <div className={`${styles['main']} ${roboto.className}` }>
             <div className={styles['text-box']}>
@@ -20,17 +44,18 @@ export default function Login(){
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
             </div>
             <div className={styles['form-container']}>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className={styles['form-item']}>
                         <label htmlFor="email">Email <span style={{color:'red'}}>*</span></label>
-                        <input type='email' id='email' name='email' placeholder="abc123@email.com" required/>
+                        <input type='email' id='email' name='email' placeholder="abc123@email.com" value = {email} onChange={handleEmailChange} required/>
                     </div>
 
                     <div className={styles['form-item']}>
                         <label htmlFor = "password">Password <span style={{color:'red'}}>*</span></label>
-                        <input type='password' id='password' name='password' placeholder="Abcd@123" required/>
+                        <input type='password' id='password' name='password' placeholder="Abcd@123" minLength = '8' value = {password} onChange={handlePasswordChange} required/>
                     </div>
                     <button type='submit' className={styles['form-btn']}>Login</button>
+                    {errors && <p className={styles['error']}>{errors.message} </p>}
                 </form>
                 <button className={styles['new-account']}>Create new Account</button>
             </div>

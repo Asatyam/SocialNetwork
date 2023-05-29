@@ -25,7 +25,7 @@
     font-size: 1.4rem;
 }
 .form-container{
-    height: 50%;
+    min-height: 50%;
     width: 90%;
     background-color:#f8fafc;
     box-shadow: 0px 0px 10px 5px #9ca3af;
@@ -89,4 +89,7 @@
     justify-self: center;
     align-self: self-start;
     background-color: #115e59;
+}
+.form-container p.error{
+    text-align: center;
 }
