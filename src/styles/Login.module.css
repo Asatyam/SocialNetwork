@@ -7,6 +7,9 @@
     align-items: center;
     gap: 30px;
 }
+.main>div{
+    border-radius: 8px;
+}
 .text-box{
     height: 200px;
     width: 90%;
@@ -26,4 +29,64 @@
     width: 90%;
     background-color:#f8fafc;
     box-shadow: 0px 0px 10px 5px #9ca3af;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-container form{
+    padding: 10px;
+    height: 90%;
+    border-bottom: 0.5px solid black;
+    display: grid;
+    grid-template-rows: 80px 80px 1fr ;
+    gap: 10px;
+}
+.new-account,.form-btn{
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.new-account{
+    
+    width: 80%;
+    align-self: center;
+    font-size: 1.3rem;
+    background-color: #6b21a8;
+
+}
+.form-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+}
+.form-item label{
+    font-size: 1.3rem;
+}
+.form-item input{
+    width: 100%;
+    border: 1px solid #94a3b8 ;
+    background:transparent;
+    padding: 5px 13px;
+    font-size: 1.4rem;
+    border-radius: 8px;
+}
+.form-item input:invalid{
+    border: 2px solid red
+}
+.form-item input:valid{
+    border: 2px solid green;
+}
+.form-item input::placeholder{
+    font-size: 1.2rem;
+}
+.form-btn{
+    font-size: 1.5rem;
+    width: 70%;
+    justify-self: center;
+    align-self: self-start;
+    background-color: #115e59;
 }

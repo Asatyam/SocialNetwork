@@ -19,7 +19,21 @@ export default function Login(){
                 <h1 className={robotoBold.className}>Odinbook</h1>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
             </div>
-            <div className={styles['form-container']}></div>
+            <div className={styles['form-container']}>
+                <form>
+                    <div className={styles['form-item']}>
+                        <label htmlFor="email">Email <span style={{color:'red'}}>*</span></label>
+                        <input type='email' id='email' name='email' placeholder="abc123@email.com" required/>
+                    </div>
+
+                    <div className={styles['form-item']}>
+                        <label htmlFor = "password">Password <span style={{color:'red'}}>*</span></label>
+                        <input type='password' id='password' name='password' placeholder="Abcd@123" required/>
+                    </div>
+                    <button type='submit' className={styles['form-btn']}>Login</button>
+                </form>
+                <button className={styles['new-account']}>Create new Account</button>
+            </div>
        </div>
     )
 }
