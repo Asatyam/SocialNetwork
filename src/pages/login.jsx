@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState,useContext } from "react";
 import { AuthContext } from "./context";
 import axios from "axios";
 import styles from '../styles/Login.module.css'
 import { Roboto } from "next/font/google";
+import { useRouter } from "next/router";
 const roboto = Roboto({subsets:['latin'],weight:'500'});
 const robotoBold = Roboto({subsets:['latin'],weight:'900'});
 export default function Login(){
@@ -12,8 +13,16 @@ export default function Login(){
     const [password,setPassword] = useState("");
     const [errors, setErrors] = useState();
     const {auth, setAuth,message,setMessage} = useContext(AuthContext);
+    const router = useRouter();
     /*To do Client side validation */
-
+    useEffect(()=>{
+        
+        const token = localStorage.getItem('token');
+        
+        if(token){
+            router.replace('/');
+        }
+    })
     const handleEmailChange = (e)=>{
         setEmail(e.target.value);
     }
@@ -31,6 +40,8 @@ export default function Login(){
             setAuth(true);
             localStorage.setItem('token',JSON.stringify(res.data.token));
             setErrors('');
+            router.push('/');
+            
         }).catch(err=>{
             console.log(err.response.data.info);
             setErrors(err.response.data.info);
