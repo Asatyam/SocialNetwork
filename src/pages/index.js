@@ -8,6 +8,7 @@ import { AuthContext } from './context';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] });
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   const { auth, setAuth, message, setMessage } = useContext(AuthContext);
@@ -21,7 +22,7 @@ export default function Home() {
   });
   return (
     <>
-      Hello
+      <Navbar/>
     </>
   );
 }

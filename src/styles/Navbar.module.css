@@ -1,0 +1,45 @@
+.main-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #faf5ff;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    box-shadow: 0px 3px 10px 3px #94a3b8 ;
+}
+.main-nav h1{
+    color:#6b21a8;
+    font-size: 2rem;
+    font-weight: 900;
+
+}
+.main-nav .search{
+    padding: 3px 9px;
+    font-size: 1.2rem;
+    max-width: 40%;
+    border: none;
+    background-color:#e5e7eb ;
+    border-radius: 8px;
+}
+.small-nav{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.main-nav img{
+    height: 25px;
+    width: 25px;
+
+}
+.main-nav button{
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    padding: 3px;
+    background: transparent;
+    border:none;
+}
+.main-nav>button{
+    text-align: start;
+}
