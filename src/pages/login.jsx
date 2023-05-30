@@ -38,6 +38,7 @@ export default function Login(){
         .then((res)=>{
             setAuth(true);
             localStorage.setItem('token',JSON.stringify(res.data.token));
+            localStorage.setItem('user',JSON.stringify(res.data.body._id));
             setErrors('');
             router.push('/');
             

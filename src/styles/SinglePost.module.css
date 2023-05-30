@@ -51,4 +51,5 @@
     top:2px;
     align-items: center;
     background: transparent;
+    transition: all 1s;
 }
