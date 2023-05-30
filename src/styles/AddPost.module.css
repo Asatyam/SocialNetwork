@@ -1,0 +1,16 @@
+.main-container{
+    height: 70px;
+    background-color:#e5e7eb;
+    display: flex;
+    padding: 10px;
+    gap:12px;
+    justify-content: center;
+    align-items: center;
+}
+.new-post{
+    padding: 10px 10px;
+    border: none;
+    background-color: white;
+    border-radius:12px;
+    color: #71717a;
+}

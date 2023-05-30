@@ -8,7 +8,9 @@ import { AuthContext } from './context';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] });
-import Navbar from '@/components/Navbar';
+import AddPost from '@/components/AddPost';
+import PostForm from '@/components/PostForm';
+
 
 export default function Home() {
   const { auth, setAuth, message, setMessage } = useContext(AuthContext);
@@ -19,9 +21,11 @@ export default function Home() {
       setAuth(false);
       router.push('/login');
     }
-  }, [auth,router,setAuth]);
+  }, [auth, router, setAuth]);
   return (
-    <>
-    </>
+    <div className={styles['main']}>
+      <AddPost />
+      <PostForm />
+    </div>
   );
 }

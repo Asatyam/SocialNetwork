@@ -27,17 +27,13 @@ export default function Navbar(){
             <nav className={styles['main-nav']}>
                 <h1><Link href = '/'>Odinbook</Link></h1>
                 <div className={`${styles['search']} ${styles['wide']}}`}>
-                    <img src="/images/search.png" alt = "Search-icon"/>
                     <input type="search" name='search' value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search"/>
                 </div>
                 <nav className = {styles['small-nav']}>
-                    <button className={styles['chat']}><img src="/images/chat.png" alt = "Chat-icon"/></button>
-                    <button className = {styles['logout']} onClick={handleLogout}><img src="/images/logout.png" alt = "logout-icon"/></button>
-                    <button className = {styles['profile-btn']}><img src="/images/profile.png" alt = "profile-icon"/></button>
+                    <button className='icon'><img src="/images/chat.png" alt = "Chat-icon"/></button>
+                    <button className = 'icon' onClick={handleLogout}><img src="/images/logout.png" alt = "logout-icon"/></button>
+                    <button className = 'icon'><img src="/images/profile.png" alt = "profile-icon"/></button>
                 </nav> 
             </nav>
     )
 }
-{/* <img src="/images/chat.png" alt = "Chat-icon"/>
-<img src="/images/chat.png" alt = "Chat-icon"/>
-<img src="/images/chat.png" alt = "Chat-icon"/> */}
