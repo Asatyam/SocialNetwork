@@ -10,6 +10,8 @@ import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] });
 import AddPost from '@/components/AddPost';
 import PostForm from '@/components/PostForm';
+import Feed from '@/components/Feed';
+// import PostForm from '@/components/PostForm';
 
 
 export default function Home() {
@@ -25,7 +27,7 @@ export default function Home() {
   return (
     <div className={styles['main']}>
       <AddPost />
-      <PostForm />
+      <Feed/>
     </div>
   );
 }
