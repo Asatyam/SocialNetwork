@@ -10,7 +10,7 @@ export default function SinglePost({post}){
         <div className={styles['container']}>
           <div className={styles['author']}>
             <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={post.author.full_name}/></button>
-            <Link href={`/user/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
+            <Link href={`/users/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
           </div>
           <div className={styles['content']}>
             {post.content} 
