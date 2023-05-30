@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@400&family=Roboto:wght@400;700&display=swap');
 *,*::after,*::before{
   margin: 0;
   padding: 0;
@@ -24,7 +24,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .icon{
   border: none;
-  background:transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  background-color: #d4d4d8;
+  border-radius: 100px;
 }
 .icon img{
   height: 25px;

@@ -1,16 +1,18 @@
 .main-container{
     height: 70px;
-    background-color:#e5e7eb;
+    background-color: #ecfeff;
+    margin:8px;
     display: flex;
     padding: 10px;
     gap:12px;
+    border-radius: 8px;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 0px 4px 1px  #64748b;
 }
 .new-post{
     padding: 10px 10px;
     border: none;
-    background-color: white;
     border-radius:12px;
     color: #71717a;
     width: 70%;

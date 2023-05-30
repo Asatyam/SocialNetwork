@@ -13,10 +13,10 @@ export default function SinglePost({post}){
             <Link href={`/user/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
           </div>
           <div className={styles['content']}>
-            {post.content}
+            {post.content} 
           </div>
           <div className={styles['post-img']}>
-                {post.image? <img src ={post.image} alt='post-image'/>: ''}
+                {post.image? <img src ={post.image} alt='post-image'/>:<img src ='/images/placeholder.png' alt='post-image'/> }
           </div>
           <div className={styles['details']}>
                 <button className='icon'><img src='images/like.png' alt='likes'/> {post.likes.length}</button>
