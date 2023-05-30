@@ -26,7 +26,8 @@
     display: flex;
     gap: 8px;
     padding: 7px;
-    width: 200px;
+    width: 100px;
+    max-width: 100%;
     color: #52525b;
     border-radius: 12px;
 }

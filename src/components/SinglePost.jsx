@@ -20,6 +20,7 @@ export default function SinglePost({post}){
           </div>
           <div className={styles['details']}>
                 <button className='icon'><img src='images/like.png' alt='likes'/> {post.likes.length}</button>
+                <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
                 <button className='icon'><img src='images/comment.png' alt='comments'/> {post.comments.length}</button>
           </div>
         </div>

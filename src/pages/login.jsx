@@ -12,7 +12,7 @@ export default function Login(){
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [errors, setErrors] = useState();
-    const {auth, setAuth,message,setMessage} = useContext(AuthContext);
+    const {auth, setAuth} = useContext(AuthContext);
     const router = useRouter();
     /*To do Client side validation */
     useEffect(()=>{
@@ -36,7 +36,6 @@ export default function Login(){
         const body = {email, password};
         axios.post('http://localhost:4000/api/login',body)
         .then((res)=>{
-            setMessage(res.data);
             setAuth(true);
             localStorage.setItem('token',JSON.stringify(res.data.token));
             setErrors('');
@@ -47,7 +46,7 @@ export default function Login(){
             setErrors(err.response.data.info);
         })
     }
-    console.log(message);
+
     return(
        <div className={`${styles['main']} ${roboto.className}` }>
             <div className={styles['text-box']}>

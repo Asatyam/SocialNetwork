@@ -15,7 +15,7 @@ import Feed from '@/components/Feed';
 
 
 export default function Home() {
-  const { auth, setAuth, message, setMessage } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem('token');
