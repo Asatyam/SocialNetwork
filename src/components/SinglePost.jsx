@@ -5,7 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function SinglePost({post,setUpdated}){
+export default function SinglePost({post}){
     const [liked,setLiked] = useState(false);
     const router = useRouter();
 
@@ -27,7 +27,7 @@ export default function SinglePost({post,setUpdated}){
             }else{
                 setLiked(false);
             }
-            setUpdated(true);
+            
         }).catch(console.log);
     }
 
