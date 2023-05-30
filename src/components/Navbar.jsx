@@ -7,16 +7,16 @@ import Image from "next/image";
 
 export default function Navbar(){
 
-    const handleClick = (e)=>{
-        setShowSearch(true);
-    }
 
     const [search, setSearch] = useState('');
-    const [showSearch, setShowSearch] = useState(false);
+    
     return(
             <nav className={styles['main-nav']}>
                 <h1><Link href = '/'>Odinbook</Link></h1>
-               { showSearch? <input type="search" name='search' className={styles['search']} value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search"/>:<button onClick = {handleClick}><img src="/images/search.png" alt = "Search-icon"/></button>}
+                <div className={`${styles['search']} ${styles['wide']}}`}>
+                    <img src="/images/search.png" alt = "Search-icon"/>
+                    <input type="search" name='search' value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search"/>
+                </div>
                 <nav className = {styles['small-nav']}>
                     <button className={styles['chat']}><img src="/images/chat.png" alt = "Chat-icon"/></button>
                     <button className = {styles['notifications']}><img src="/images/notification.png" alt = "notification-icon"/></button>
