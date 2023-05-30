@@ -1,15 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import styles from '../styles/Navbar.module.css'
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
+import { AuthContext } from "@/pages/context";
+
 
 export default function Navbar(){
 
 
     const [search, setSearch] = useState('');
-    
+    const {setAuth} = useContext(AuthContext);
+    const handleLogout = (e)=>{
+        const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+           localStorage.clear();
+           setAuth(false);
+        axios.post('http://localhost:4000/api/logout',config)
+        .catch(console.log);
+    }
     return(
             <nav className={styles['main-nav']}>
                 <h1><Link href = '/'>Odinbook</Link></h1>
@@ -19,7 +32,7 @@ export default function Navbar(){
                 </div>
                 <nav className = {styles['small-nav']}>
                     <button className={styles['chat']}><img src="/images/chat.png" alt = "Chat-icon"/></button>
-                    <button className = {styles['notifications']}><img src="/images/notification.png" alt = "notification-icon"/></button>
+                    <button className = {styles['logout']} onClick={handleLogout}><img src="/images/logout.png" alt = "logout-icon"/></button>
                     <button className = {styles['profile-btn']}><img src="/images/profile.png" alt = "profile-icon"/></button>
                 </nav> 
             </nav>

@@ -19,10 +19,9 @@ export default function Home() {
       setAuth(false);
       router.push('/login');
     }
-  });
+  }, [auth,router,setAuth]);
   return (
     <>
-      <Navbar/>
     </>
   );
 }

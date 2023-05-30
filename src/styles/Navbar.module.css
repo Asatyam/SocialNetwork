@@ -66,4 +66,7 @@
         min-width: 40%;
         max-width: 60%;
     }
+    .small-nav{
+        gap: 16px;
+    }
 }
