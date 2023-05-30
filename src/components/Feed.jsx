@@ -7,6 +7,7 @@ import useSWR from 'swr';
 export default function Feed(){
     
     const [feed, setFeed] = useState([])
+    const [updated, setUpdated] = useState(false);
     useEffect(()=>{
         const token = JSON.parse(localStorage.getItem('token'));
         const config = {
@@ -15,14 +16,15 @@ export default function Feed(){
         axios.get('http://localhost:4000/api/feed',config)
         .then((res)=>{
             setFeed(res.data.friendsPosts);
+            setUpdated(false);
             // console.log(feed);
         })
         .catch(console.log);    
-    },[feed])
+    },[feed,updated])
 
     return (
         <div className={styles['container']}>
-           { feed.length>0?feed.map(post=><SinglePost key = {post._id} post = {post}/>):'There are no posts'}
+           { feed.length>0?feed.map(post=><SinglePost key = {post._id} post = {post} setUpdated = {setUpdated}/>):'There are no posts'}
         </div>
     )
 }

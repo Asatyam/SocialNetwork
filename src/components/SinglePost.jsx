@@ -3,10 +3,15 @@ import React,{useState,useEffect} from "react";
 import styles from '../styles/SinglePost.module.css'
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
-
-export default function SinglePost({post}){
+export default function SinglePost({post,setUpdated}){
     const [liked,setLiked] = useState(false);
+    const router = useRouter();
+
+    const showPost = (e)=>{
+        router.push(`/posts/${post._id}`);
+    }
 
     const handleLike = (e)=>{
         let action  = liked?'unlike':'like';
@@ -17,18 +22,22 @@ export default function SinglePost({post}){
         axios.patch(`http://localhost:4000/api/posts/${post._id}/${action}`,{},config)
         .then((res)=>{
             console.log(res.data);
-            if(action ==='like'){setLiked(true);}
-            else{setLiked(false);}
+            if(action ==='like'){
+                setLiked(true);
+            }else{
+                setLiked(false);
+            }
+            setUpdated(true);
         }).catch(console.log);
     }
 
     return (
-        <div className={styles['container']}>
+        <div className={styles['container']}  >
           <div className={styles['author']}>
             <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={post.author.full_name}/></button>
             <Link href={`/users/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
           </div>
-          <div className={styles['content']}>
+          <div className={styles['content']} onClick={showPost}>
             {post.content} 
           </div>
           <div className={styles['post-img']}>
