@@ -1,0 +1,52 @@
+.container form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+}
+.content{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+.content label{
+    font-size: 1.2rem;
+}
+.content textarea{
+    resize: none;
+    font-family: inherit;
+    height: 100px;
+    width: 400px;
+    font-size: 1.1rem;
+    padding: 10px 10px;
+    border-radius: 8px;
+    color:white;
+    background-color: #0c4a6e;
+    border: 3px double teal;
+}
+.content textarea:focus{
+    outline: none;
+}
+.post-btn {
+
+    background-color: #082f49;
+    color: white;
+    border: 2px solid;
+    font-weight: 900;
+    padding: 5px 10px;
+    width: 100px;
+    align-self: center;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    border: 2px solid teal;
+}
+
+.post-btn:hover {
+    background-color: #67e8f9;
+        color: black;
+
+}
+
