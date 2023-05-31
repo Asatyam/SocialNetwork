@@ -7,7 +7,19 @@ import { useRouter } from "next/router";
 
 export default function SinglePost({post}){
     const [liked,setLiked] = useState(false);
+    const [comments,setComments] = useState([]);
     const router = useRouter();
+
+    useEffect(()=>{
+        const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        axios.get(`http://localhost:4000/api/posts/${post._id}/comments`,config)
+        .then(res=>{
+            setComments(res.data.comments);  
+        }).catch(console.log);
+    })
 
     const showPost = (e)=>{
         router.push(`/posts/${post._id}`);
@@ -48,7 +60,7 @@ export default function SinglePost({post}){
                     <img src='images/like.png' alt='likes'/> {post.likes.length}
                 </button>
                 <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
-                <button className='icon'><img src='images/comment.png' alt='comments'/> {post.comments.length}</button>
+                <button className='icon'><img src='images/comment.png' alt='comments'/> {comments.length}</button>
           </div>
         </div>
     )

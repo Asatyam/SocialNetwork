@@ -1,10 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
+import axios from "axios";
 import Link from "next/link";
 import styles from "../styles/PostDetail.module.css"
 import formatDate from "@/utils/formatDate";
 
 export default function PostDetail({post}){
+
+    const[comments, setComments] = useState([]);
+
+      useEffect(()=>{
+        const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        axios.get(`http://localhost:4000/api/posts/${post._id}/comments`,config)
+        .then(res=>{
+            setComments(res.data.comments);  
+        }).catch(console.log);
+    })
 
 
     return (
@@ -24,7 +38,7 @@ export default function PostDetail({post}){
                     <img src='../../images/like.png' alt='likes'/> {post.likes.length}
                 </button>
                 <p>{formatDate(new Date(post.date)) }</p>
-                <button className='icon'><img src='../../images/comment.png' alt='comments'/> {post.comments.length}</button>
+                <button className='icon'><img src='../../images/comment.png' alt='comments'/> {comments.length}</button>
           </div>
         </div>
     )
