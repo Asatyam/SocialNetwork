@@ -21,7 +21,7 @@ export default function PostDetail({post}){
                 <button className='icon'>
                     <img src='../../images/like.png' alt='likes'/> {post.likes.length}
                 </button>
-                <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
+                <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toDateString()}` }</p>
                 <button className='icon'><img src='../../images/comment.png' alt='comments'/> {post.comments.length}</button>
           </div>
         </div>

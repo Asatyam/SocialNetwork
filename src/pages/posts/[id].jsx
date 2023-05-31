@@ -30,7 +30,7 @@ export default function Posts(){
         return <LoadingScreen/>
     }
     return (
-        <div>
+        <div style = {{backgroundColor: '#082f49',color: 'white'}}>
             <PostDetail post = {post}/>
         </div>
     )
