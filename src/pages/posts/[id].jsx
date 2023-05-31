@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { LoadingScreen } from "@/components/Loading";
 import axios from "axios";
 import PostDetail from "@/components/PostDetail";
-
+import Comments from "@/components/Comments";
 
 export default function Posts(){
 
@@ -30,8 +30,9 @@ export default function Posts(){
         return <LoadingScreen/>
     }
     return (
-        <div style = {{backgroundColor: '#082f49',color: 'white'}}>
+        <div style = {{backgroundColor: '#082f49',color: 'white', minHeight: '100vh'}}>
             <PostDetail post = {post}/>
+            <Comments comments={comments}/>
         </div>
     )
 
