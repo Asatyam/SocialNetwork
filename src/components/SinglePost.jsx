@@ -6,7 +6,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function SinglePost({post}){
-    const [liked,setLiked] = useState(false);
     const [comments,setComments] = useState([]);
     const router = useRouter();
 
@@ -25,24 +24,38 @@ export default function SinglePost({post}){
         router.push(`/posts/${post._id}`);
     }
 
+    const [color,setColor] = useState('black');
+
+    useEffect(()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const isLiked = post.likes.includes(user);
+        isLiked? setColor('red'):setColor('black');
+    },[post.likes]);
+
     const handleLike = (e)=>{
-        let action  = liked?'unlike':'like';
         const token = JSON.parse(localStorage.getItem('token'));
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
-        axios.patch(`http://localhost:4000/api/posts/${post._id}/${action}`,{},config)
+        axios.patch(`http://localhost:4000/api/posts/${post._id}/like`,{},config)
         .then((res)=>{
-            console.log(res.data);
-            if(action ==='like'){
-                setLiked(true);
-            }else{
-                setLiked(false);
-            }
+           setColor('red');
+           console.log(res);
             
-        }).catch(console.log);
+        }).catch((err)=>{
+            console.log(err);
+            if(err.response.status === 403){
+                axios.patch(`http://localhost:4000/api/posts/${post._id}/unlike`,{},config)
+                .then((res)=>{
+                    setColor('black');
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+            }
+        });
     }
-
     return (
         <div className={styles['container']}  >
           <div className={styles['author']}>
@@ -56,7 +69,7 @@ export default function SinglePost({post}){
                 {post.image? <img src ={post.image} alt='post-image'/>:<img src ='/images/placeholder.png' alt='post-image'/> }
           </div>
           <div className={styles['details']}>
-                <button className='icon' onClick={handleLike} style ={{color: liked?'blue':'black', fontSize: liked? '1.2rem':'1rem'}}>
+                <button className='icon' onClick={handleLike} style ={{color: color}}>
                     <img src='images/like.png' alt='likes'/> {post.likes.length}
                 </button>
                 <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>

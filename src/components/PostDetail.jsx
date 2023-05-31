@@ -20,6 +20,38 @@ export default function PostDetail({post}){
         }).catch(console.log);
     })
 
+    const [color,setColor] = useState('black');
+
+    useEffect(()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const isLiked = post.likes.includes(user);
+        isLiked? setColor('red'):setColor('white');
+    },[post.likes]);
+
+    const handleLike = (e)=>{
+        const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        axios.patch(`http://localhost:4000/api/posts/${post._id}/like`,{},config)
+        .then((res)=>{
+           setColor('red');
+           console.log(res);
+            
+        }).catch((err)=>{
+            console.log(err);
+            if(err.response.status === 403){
+                axios.patch(`http://localhost:4000/api/posts/${post._id}/unlike`,{},config)
+                .then((res)=>{
+                    setColor('white');
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+            }
+        });
+    }
 
     return (
         <div className={styles['container']} >
@@ -34,7 +66,7 @@ export default function PostDetail({post}){
                 {post.image? <img src ={post.image} alt='post-image'/>:<img src ='/images/placeholder.png' alt='post-image'/> }
           </div>
           <div className={styles['details']}>
-                <button className='icon'>
+                <button className='icon' onClick={handleLike} style={{color:color}}>
                     <img src='../../images/like.png' alt='likes'/> {post.likes.length}
                 </button>
                 <p>{formatDate(new Date(post.date)) }</p>

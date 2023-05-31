@@ -27,7 +27,7 @@ export default function Posts(){
         .then((res)=>{
             setComments(res.data.comments);
         }).catch(console.log);
-    },[router]);
+    });
 
     if(!post){
         return <LoadingScreen/>

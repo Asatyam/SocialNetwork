@@ -2,26 +2,39 @@
 import React,{useState,useEffect} from "react";
 import styles from '../styles/SingleComment.module.css'
 import Link from "next/link";
+import axios from "axios";
 
 export default function SingleComment({comment, post}){
 
-    const [liked,setLiked] = useState(false);
+    const [color,setColor] = useState('');
+
+    useEffect(()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const isLiked = comment.likes.find(like=>like._id === user );
+        isLiked? setColor('red'):setColor('white');
+    },[comment.likes]);
+
     const handleLike = (e)=>{
-        let action  = liked?'unlike':'like';
         const token = JSON.parse(localStorage.getItem('token'));
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
-        axios.patch(`http://localhost:4000/api/posts/${post._id}/${action}`,{},config)
+        axios.patch(`http://localhost:4000/api/posts/${post._id}/comments/${comment._id}/like`,{},config)
         .then((res)=>{
-            console.log(res.data);
-            if(action ==='like'){
-                setLiked(true);
-            }else{
-                setLiked(false);
-            }
+           setColor('red');
             
-        }).catch(console.log);
+        }).catch((err)=>{
+            if(err.response.status === 402){
+                axios.patch(`http://localhost:4000/api/posts/${post._id}/comments/${comment._id}/unlike`,{},config)
+                .then((res)=>{
+                    setColor('white');
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+            }
+        });
     }
     return(
         <div className={styles['comment']}>
@@ -33,7 +46,7 @@ export default function SingleComment({comment, post}){
                 </div>
             </div>
             <div className={styles['likes']}>
-                 <button className='icon' onClick={handleLike} style ={{color: liked?'blue':'white', fontSize: liked? '1.2rem':'1rem'}}>
+                 <button className='icon' onClick={handleLike} style = {{color: color}}>
                     <img src='../../images/like.png' alt='likes'/> <p>{comment.likes.length}</p>
                 </button>
                 <button className='icon'><img src='../../images/comment.png' alt='comments'/> 0</button>
