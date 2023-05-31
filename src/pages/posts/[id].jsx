@@ -22,6 +22,9 @@ export default function Posts(){
         axios.get(`http://localhost:4000/api/posts/${postid}`,config)
         .then((res)=>{
             setPost(res.data.post);
+        }).catch(console.log);
+        axios.get(`http://localhost:4000/api/posts/${postid}/comments`,config)
+        .then((res)=>{
             setComments(res.data.comments);
         }).catch(console.log);
     });
@@ -32,7 +35,7 @@ export default function Posts(){
     return (
         <div style = {{backgroundColor: '#082f49',color: 'white', minHeight: '100vh'}}>
             <PostDetail post = {post}/>
-            <Comments comments={comments}/>
+            <Comments comments={comments} post={post}/>
         </div>
     )
 
