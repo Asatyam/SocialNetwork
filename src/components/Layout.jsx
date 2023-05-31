@@ -1,12 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "./Navbar";
 import styles from  "../styles/Layout.module.css"
+import { AuthContext } from "@/pages/context";
+import { useContext } from "react";
 export default function Layout({children}){
+
+    const [showNav, setShowNav] = useState(true);
+    useEffect(()=>{
+            const token = localStorage.getItem('token');
+            if(!token){
+                setShowNav(false);
+            }    
+    },[])
 
     return(
        <div className={styles.layout}>
-       <Navbar/>
+      {showNav && <Navbar/>}
        {children}
        </div>
     )
