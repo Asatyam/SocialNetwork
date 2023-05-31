@@ -12,7 +12,6 @@ import AddPost from '@/components/AddPost';
 import PostForm from '@/components/PostForm';
 // import Mutuals from '@/components/Mutuals';
 import Feed from '@/components/Feed';
-// import PostForm from '@/components/PostForm';
 
 
 export default function Home() {
@@ -29,7 +28,6 @@ export default function Home() {
     <div className={styles['main']}>
       <AddPost />
       <Feed/>
-      {/* <Feed/> */}
     </div>
   );
 }
