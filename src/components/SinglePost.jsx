@@ -7,9 +7,15 @@ import { useRouter } from "next/router";
 
 export default function SinglePost({post}){
     const [comments,setComments] = useState([]);
+    const [sameUser, setSameUser] = useState('false');
     const router = useRouter();
 
     useEffect(()=>{
+        const user = JSON.parse(localStorage.getItem('user'));
+        setSameUser(false);
+        if(post.author._id === user){
+            setSameUser(true);
+        }
         const token = JSON.parse(localStorage.getItem('token'));
         const config = {
             headers: { Authorization: `Bearer ${token}`}
@@ -18,7 +24,7 @@ export default function SinglePost({post}){
         .then(res=>{
             setComments(res.data.comments);  
         }).catch(console.log);
-    })
+    },[setSameUser,post._id,post.author._id])
 
     const showPost = (e)=>{
         router.push(`/posts/${post._id}`);
@@ -56,11 +62,25 @@ export default function SinglePost({post}){
             }
         });
     }
+    const deletePost = (e)=>{
+
+         const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        const isSure = confirm('Are you sure you want to delete this comment \n' + post.content);
+        if(isSure){
+            axios.delete(`http://localhost:4000/api/posts/${post._id}`,config)
+        .then(console.log)
+        .catch(console.log)
+        }
+    }
     return (
         <div className={styles['container']}  >
           <div className={styles['author']}>
             <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={post.author.full_name}/></button>
             <Link href={`/users/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
+        
           </div>
           <div className={styles['content']} onClick={showPost}>
             {post.content} 
@@ -74,6 +94,7 @@ export default function SinglePost({post}){
                 </button>
                 <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
                 <button className='icon'><img src='images/comment.png' alt='comments'/> {comments.length}</button>
+                {sameUser && <button className='icon' onClick={deletePost}><img src='../../images/delete.png' alt='delete'/> </button>}
           </div>
         </div>
     )
