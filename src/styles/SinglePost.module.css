@@ -23,6 +23,7 @@
     border-top: 1px solid black;
     overflow: hidden;
     max-height: 120px;
+    width: 100%;
 
 }
 .container div{
