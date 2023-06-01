@@ -5,11 +5,11 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function SinglePost({post,user}){
+export default function SinglePost({post}){
     const [comments,setComments] = useState([]);
     const [sameUser, setSameUser] = useState('false');
     const router = useRouter();
-    const author = user?user:post.author;
+
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
         setSameUser(false);
@@ -78,8 +78,8 @@ export default function SinglePost({post,user}){
     return (
         <div className={styles['container']}  >
           <div className={styles['author']}>
-            <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={author.full_name}/></button>
-            <Link href={`/users/${author._id}`}>{`${author.first_name} ${author.last_name}`}</Link>
+            <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={post.author.full_name}/></button>
+            <Link href={`/users/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
         
           </div>
           <div className={styles['content']} onClick={showPost}>
@@ -90,10 +90,10 @@ export default function SinglePost({post,user}){
           </div>
           <div className={styles['details']}>
                 <button className='icon' onClick={handleLike} style ={{color: color}}>
-                    <img src='../../images/like.png' alt='likes'/> {post.likes.length}
+                    <img src='images/like.png' alt='likes'/> {post.likes.length}
                 </button>
                 <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
-                <button className='icon'><img src='../../images/comment.png' alt='comments'/> {comments.length}</button>
+                <button className='icon'><img src='images/comment.png' alt='comments'/> {comments.length}</button>
                 {sameUser && <button className='icon' onClick={deletePost}><img src='../../images/delete.png' alt='delete'/> </button>}
           </div>
         </div>

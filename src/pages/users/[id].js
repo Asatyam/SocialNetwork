@@ -5,6 +5,7 @@ import { LoadingScreen } from '@/components/Loading';
 import axios from 'axios';
 import styles from '../../styles/Profile.module.css'
 import Link from 'next/link';
+import SinglePost from '@/components/SinglePost';
 
 export default function Profile() {
   const router = useRouter();
@@ -58,11 +59,12 @@ export default function Profile() {
       <div className={styles['info']}>
         <div className={styles['profile-img']}>
           <img src="../../images/profile.png" alt="profile-img" />
-          {sameUser && <button className="icon">
-            <img src="/images/edit.png" alt="edit-profile-icon" />
-            <img src="/images/delete.png" alt="delete-profile-icon" />
-          </button>
-      }
+          {sameUser && (
+            <button className="icon">
+              <img src="/images/edit.png" alt="edit-profile-icon" />
+              <img src="/images/delete.png" alt="delete-profile-icon" />
+            </button>
+          )}
         </div>
         <div className={styles['user-info']}>
           <h2 className={styles['profile-name']}>
@@ -79,19 +81,22 @@ export default function Profile() {
             <img src="/images/profile.png" alt="profile-icon" />
           </button>
         </div>
-        {sameUser &&
-        <div className={styles['actions']}>
-          <button>Add to your story</button>
-          <button>Update Profile</button>
-        </div>
-        }
-        {!sameUser && <div className={styles['actions']}>
-          <button>Add friends</button>
-          <button>Message</button>
-        </div>
-        }   
+        {sameUser && (
+          <div className={styles['actions']}>
+            <button>Add to your story</button>
+            <button>Update Profile</button>
+          </div>
+        )}
+        {!sameUser && (
+          <div className={styles['actions']}>
+            <button>Add friends</button>
+            <button>Message</button>
+          </div>
+        )}
       </div>
-        
+      {posts.length > 0
+        ? posts.map((post) => <SinglePost key={post._id} post={post} user = {user} />)
+        : 'There are no posts'}
     </div>
   );
 }
