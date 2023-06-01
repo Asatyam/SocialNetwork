@@ -86,7 +86,7 @@ export default function SinglePost({post}){
             {post.content} 
           </div>
           <div className={styles['post-img']}>
-                {post.image? <img src ={post.image} alt='post-image'/>:<img src ='/images/placeholder.png' alt='post-image'/> }
+                {post.image && <img src ={post.image} alt='post-image'/> }
           </div>
           <div className={styles['details']}>
                 <button className='icon' onClick={handleLike} style ={{color: color}}>

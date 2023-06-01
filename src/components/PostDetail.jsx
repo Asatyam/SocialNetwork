@@ -60,10 +60,12 @@ export default function PostDetail({post}){
             <Link href={`/users/${post.author._id}`}>{`${post.author.first_name} ${post.author.last_name}`}</Link>
           </div>
           <div className={styles['content']}>
+          <div className={styles['text']}>
             {post.content} 
           </div>
-          <div className={styles['post-img']}>
-                {post.image? <img src ={post.image} alt='post-image'/>:<img src ='/images/placeholder.png' alt='post-image'/> }
+          { post.image && <div className={styles['post-img']}>
+                { <img src ={post.image} alt='post-image'/> }
+          </div>}
           </div>
           <div className={styles['details']}>
                 <button className='icon' onClick={handleLike} style={{color:color}}>

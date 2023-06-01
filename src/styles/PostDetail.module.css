@@ -2,14 +2,11 @@
 .container{
     margin: 0 auto;
     color: white;
-    min-height: 70vh;
     padding: 20px;
     display: grid;
-    align-items: center;
+    gap: 10px;
     font-family: 'Source Sans Pro','Roboto', Arial, Helvetica, sans-serif;
-
 }
-
 
 .author{
     display: flex;
