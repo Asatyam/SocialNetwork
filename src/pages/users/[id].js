@@ -17,6 +17,7 @@ export default function Profile() {
   const [friends, setFriends] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [requests,setRequests] = useState([]);
+  const [sent, setSent] = useState([]);
   const userid = router.query.id;
   const [sameUser, setSameUser] = useState(false);
   useEffect(() => {
@@ -61,6 +62,12 @@ export default function Profile() {
         setRequests(res.data.requests);
       })
       .catch(console.log);
+      axios
+        .get(`http://localhost:4000/api/users/${userid}/sentRequests`, config)
+        .then((res) => {
+          setSent(res.data.sentRequests);
+        })
+        .catch(console.log);
     }
   }, [userid, router,sameUser]);
 
@@ -230,6 +237,15 @@ export default function Profile() {
                 return <ProfileCard key={request._id} account={request} />;
               })
             : 'There are no Requests'}
+        </div>
+      )}
+      {visible === 'sent' && (
+        <div className={styles['friends']}>
+          {sent.length > 0
+            ? sent.map((sent) => {
+                return <ProfileCard key={sent._id} account={sent} />;
+              })
+            : 'You have not sent any requests'}
         </div>
       )}
     </div>

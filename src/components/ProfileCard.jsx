@@ -9,14 +9,14 @@ import axios from "axios";
 
 export default function ProfileCard({account}){
 
-    const [isFriend, setIsFriend] = useState(false);
-    const [requested,setRequested] = useState(false);
-    const [requesting, setRequesting] = useState(false);
     const [status,setStatus] = useState('');
     const [currUser, setCurrUser] = useState(null);
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'))
+        if(user === account._id){
+            setStatus('same');
+        }
          const token = JSON.parse(localStorage.getItem('token'));
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -47,7 +47,7 @@ export default function ProfileCard({account}){
             } 
         })
         .catch(console.log);
-    },[setCurrUser,account._id,setRequested,requested,requesting,setRequesting])
+    },[setCurrUser,account._id,status])
 
     const removeFriend = (e)=>{
           const token = JSON.parse(localStorage.getItem('token'));
@@ -134,6 +134,11 @@ export default function ProfileCard({account}){
                 <>
                 <button onClick={acceptRequest}> Accept</button>
                 <button onClick = {rejectRequest}>Reject</button>
+                </>
+            )
+        case 'same':
+            return(
+                <>
                 </>
             )
         default: 
