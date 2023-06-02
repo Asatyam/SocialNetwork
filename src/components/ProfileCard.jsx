@@ -6,11 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
+
 export default function ProfileCard({account}){
 
     const [isFriend, setIsFriend] = useState(false);
     const [requested,setRequested] = useState(false);
     const [requesting, setRequesting] = useState(false);
+    const [status,setStatus] = useState('');
     const [currUser, setCurrUser] = useState(null);
 
     useEffect(()=>{
@@ -23,13 +25,15 @@ export default function ProfileCard({account}){
         .then(res=>{
             setCurrUser(res.data.user);
             const idx = res.data.user.friends.includes(account._id);
-            setIsFriend(idx);
+            if(idx){
+                setStatus('friend');
+            }
         })
         axios.get(`http://localhost:4000/api/users/${user}/sentRequests`,config)
         .then(res=>{
             const idx = res.data.sentRequests.findIndex((req)=>req._id === account._id);
             if(idx !== -1){
-                setRequested(true);
+                setStatus('requested');
             }    
         })
         .catch(console.log) 
@@ -39,16 +43,25 @@ export default function ProfileCard({account}){
             console.log(res.data);
              const idx = res.data.requests.findIndex((req)=>req._id === account._id);
             if(idx !== -1){
-                setRequesting(true);
+                setStatus('requesting');
             } 
         })
         .catch(console.log);
     },[setCurrUser,account._id,setRequested,requested,requesting,setRequesting])
 
-    const handleRemoveFriend = (e)=>{
-        console.log(e.target);
+    const removeFriend = (e)=>{
+          const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+        console.log(config);
+        axios.patch(`http://localhost:4000/api/users/${account._id}/removeFriend`,{},config)
+        .then((res)=>{
+            setStatus('');
+        })
+        .catch(console.log);
     }
-    const handleAddFriend = (e)=>{
+    const addFriend = (e)=>{
          const token = JSON.parse(localStorage.getItem('token'));
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
@@ -56,7 +69,7 @@ export default function ProfileCard({account}){
         console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/sendRequest`,{},config)
         .then((res)=>{
-            setRequested(true);
+            setStatus('requested');
         })
         .catch(console.log);
     }
@@ -68,11 +81,70 @@ export default function ProfileCard({account}){
         console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/cancelRequest`,{},config)
         .then((res)=>{
-            setRequested(false);
+            setStatus('');
             console.log(res.data);
         })
         .catch(console.log);
     }
+    const acceptRequest = (e)=>{
+         const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+        console.log(config);
+        axios.patch(`http://localhost:4000/api/users/${account._id}/acceptRequest`,{},config)
+        .then((res)=>{
+            setStatus('friend');
+            console.log(res.data);
+        })
+        .catch(console.log);
+    }
+     const rejectRequest = (e)=>{
+         const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+        console.log(config);
+        axios.patch(`http://localhost:4000/api/users/${account._id}/rejectRequest`,{},config)
+        .then((res)=>{
+            setStatus('');
+            console.log(res.data);
+        })
+        .catch(console.log);
+    }
+
+    const  returnButtons = (friendShipStatus)=>{
+    switch(friendShipStatus){
+
+        case 'friend':
+            return(
+                <>
+                <button onClick={removeFriend}> Friends ✔️</button>
+                <button>Message</button>
+                </>
+            )
+        case 'requested':
+            return(
+                <>
+                <button onClick = {cancelRequest}>Cancel Request</button>
+                </>
+            );
+        case 'requesting':
+            return(
+                <>
+                <button onClick={acceptRequest}> Accept</button>
+                <button onClick = {rejectRequest}>Reject</button>
+                </>
+            )
+        default: 
+                return(
+                    <>
+                    <button onClick={addFriend}> Add friend</button>
+                    </>
+                )
+    }
+}
+
     
     return(
         <div className={styles['container']}>
@@ -81,8 +153,8 @@ export default function ProfileCard({account}){
             </div>
             <Link href={`/users/${account._id}`} ><p>{account.first_name + ' '+ account.last_name}</p></Link>
             <div className={styles['action-btns']}>
-             { isFriend ?  <button onClick={handleRemoveFriend}> Friends ✔️</button>: requested? <button onClick={cancelRequest}>Cancel request</button> : <button onClick={handleAddFriend}>Add Friend</button>}
-                <button>Message</button>
+             { returnButtons(status)}
+                
             </div>
         </div>
     )
