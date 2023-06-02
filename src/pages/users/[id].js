@@ -199,7 +199,7 @@ export default function Profile() {
         <div className={styles['friends']}>
           {friends.length > 0
             ? friends.map((friend) => {
-                return <ProfileCard key={friend._id} account={friend} />;
+                return <ProfileCard key={friend._id} account={friend}/>;
               })
             : 'There are no Friends'}
         </div>
