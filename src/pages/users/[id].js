@@ -16,6 +16,7 @@ export default function Profile() {
   const [visible, setVisible] = useState('posts');
   const [friends, setFriends] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
+  const [requests,setRequests] = useState([]);
   const userid = router.query.id;
   const [sameUser, setSameUser] = useState(false);
   useEffect(() => {
@@ -52,7 +53,16 @@ export default function Profile() {
         setLikedPosts(res.data.likes);
       })
       .catch(console.log);
-  }, [userid, router]);
+      if(sameUser)
+      {
+    axios
+      .get(`http://localhost:4000/api/users/${userid}/requests`, config)
+      .then((res) => {
+        setRequests(res.data.requests);
+      })
+      .catch(console.log);
+    }
+  }, [userid, router,sameUser]);
 
   if (!user) {
     return <LoadingScreen />;
@@ -199,7 +209,7 @@ export default function Profile() {
         <div className={styles['friends']}>
           {friends.length > 0
             ? friends.map((friend) => {
-                return <ProfileCard key={friend._id} account={friend}/>;
+                return <ProfileCard key={friend._id} account={friend} />;
               })
             : 'There are no Friends'}
         </div>
@@ -211,6 +221,15 @@ export default function Profile() {
                 return <SinglePost key={liked._id} post={liked} user={user} />;
               })
             : 'There are no liked posts'}
+        </div>
+      )}
+      {visible === 'received' && (
+        <div className={styles['friends']}>
+          {requests.length > 0
+            ? requests.map((request) => {
+                return <ProfileCard key={request._id} account={request} />;
+              })
+            : 'There are no Requests'}
         </div>
       )}
     </div>

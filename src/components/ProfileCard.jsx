@@ -9,6 +9,8 @@ import axios from "axios";
 export default function ProfileCard({account}){
 
     const [isFriend, setIsFriend] = useState(false);
+    const [requested,setRequested] = useState(false);
+    const [requesting, setRequesting] = useState(false);
     const [currUser, setCurrUser] = useState(null);
 
     useEffect(()=>{
@@ -23,14 +25,53 @@ export default function ProfileCard({account}){
             const idx = res.data.user.friends.includes(account._id);
             setIsFriend(idx);
         })
+        axios.get(`http://localhost:4000/api/users/${user}/sentRequests`,config)
+        .then(res=>{
+            const idx = res.data.sentRequests.findIndex((req)=>req._id === account._id);
+            if(idx !== -1){
+                setRequested(true);
+            }    
+        })
         .catch(console.log) 
-    },[setCurrUser,account._id])
+    
+        axios.get(`http://localhost:4000/api/users/${user}/requests`,config)
+        .then((res)=>{
+            console.log(res.data);
+             const idx = res.data.requests.findIndex((req)=>req._id === account._id);
+            if(idx !== -1){
+                setRequesting(true);
+            } 
+        })
+        .catch(console.log);
+    },[setCurrUser,account._id,setRequested,requested,requesting,setRequesting])
 
     const handleRemoveFriend = (e)=>{
         console.log(e.target);
     }
     const handleAddFriend = (e)=>{
-        console.log(e.target);
+         const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+        console.log(config);
+        axios.patch(`http://localhost:4000/api/users/${account._id}/sendRequest`,{},config)
+        .then((res)=>{
+            setRequested(true);
+        })
+        .catch(console.log);
+    }
+    const cancelRequest = (e)=>{
+         const token = JSON.parse(localStorage.getItem('token'));
+           const config = {
+                headers: {Authorization: `Bearer ${token}`}
+           }
+        console.log(config);
+        axios.patch(`http://localhost:4000/api/users/${account._id}/cancelRequest`,{},config)
+        .then((res)=>{
+            setRequested(false);
+            console.log(res.data);
+        })
+        .catch(console.log);
     }
     
     return(
@@ -40,7 +81,7 @@ export default function ProfileCard({account}){
             </div>
             <Link href={`/users/${account._id}`} ><p>{account.first_name + ' '+ account.last_name}</p></Link>
             <div className={styles['action-btns']}>
-             { isFriend ?  <button onClick={handleRemoveFriend}> Friends ✔️</button>: <button onClick={handleAddFriend}>Add Friend</button>}
+             { isFriend ?  <button onClick={handleRemoveFriend}> Friends ✔️</button>: requested? <button onClick={cancelRequest}>Cancel request</button> : <button onClick={handleAddFriend}>Add Friend</button>}
                 <button>Message</button>
             </div>
         </div>
