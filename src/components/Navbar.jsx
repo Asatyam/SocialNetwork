@@ -12,6 +12,11 @@ export default function Navbar(){
 
     const [search, setSearch] = useState('');
     const {setAuth} = useContext(AuthContext);
+    let userid;
+    if(typeof window !=='undefined'){
+        const user = JSON.parse(localStorage.getItem('user'));
+        userid = user;
+    }
     const handleLogout = (e)=>{
         const token = JSON.parse(localStorage.getItem('token'));
            const config = {
@@ -31,7 +36,7 @@ export default function Navbar(){
                 <nav className = {styles['small-nav']}>
                     <button className='icon'><img src="/images/chat.png" alt = "Chat-icon"/></button>
                     <button className = 'icon' onClick={handleLogout}><img src="/images/logout.png" alt = "logout-icon"/></button>
-                    <button className = 'icon'><img src="/images/profile.png" alt = "profile-icon"/></button>
+                    <button className = 'icon'><Link href = {`/users/${userid}`}><img src="/images/profile.png" alt = "profile-icon"/></Link></button>
                 </nav> 
             </nav>
     )
