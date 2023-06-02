@@ -4,6 +4,7 @@ import styles from '../styles/SinglePost.module.css'
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import formatDate from "@/utils/formatDate";
 
 export default function SinglePost({post,user}){
     const [comments,setComments] = useState([]);
@@ -92,7 +93,7 @@ export default function SinglePost({post,user}){
                 <button className='icon' onClick={handleLike} style ={{color: color}}>
                     <img src='../../images/like.png' alt='likes'/> {post.likes.length}
                 </button>
-                <p>{`${new Date(post.date).toLocaleTimeString()} ${new Date(post.date).toLocaleDateString()}` }</p>
+                <p>{formatDate(new Date(post.date)) }</p>
                 <button className='icon'><img src='../../images/comment.png' alt='comments'/> {comments.length}</button>
                 {sameUser && <button className='icon' onClick={deletePost}><img src='../../images/delete.png' alt='delete'/> </button>}
           </div>

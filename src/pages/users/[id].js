@@ -85,7 +85,7 @@ export default function Profile() {
           <h2 className={styles['profile-name']}>
             {user.first_name + ' ' + user.last_name}
           </h2>
-          <p>{user.friends.length} friends</p>
+          <p>{friends.length} friends</p>
           <button className="icon">
             <img src="/images/profile.png" alt="profile-icon" />
             <img src="/images/profile.png" alt="profile-icon" />
@@ -210,7 +210,7 @@ export default function Profile() {
             ? likedPosts.map((liked) => {
                 return <SinglePost key={liked._id} post={liked} user={user} />;
               })
-            : 'There are no Friends'}
+            : 'There are no liked posts'}
         </div>
       )}
     </div>

@@ -1,6 +1,9 @@
 export default function formatDate(date) {
   let hours = date.getHours();
-  const minutes = date.getMinutes();
+  let minutes = date.getMinutes();
+  if(minutes<10){
+    minutes = '0'+minutes;
+  }
   const amOrpm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   const dateString = date.toDateString();
