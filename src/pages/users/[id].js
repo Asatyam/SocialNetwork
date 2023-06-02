@@ -94,9 +94,20 @@ export default function Profile() {
           </div>
         )}
       </div>
-      {posts.length > 0
-        ? posts.map((post) => <SinglePost key={post._id} post={post} user = {user} />)
-        : 'There are no posts'}
+      <div className={styles['tabs']}>
+        <button className={styles['tab']}>Posts</button>
+        <button className={styles['tab']}>Friends</button>
+        <button className={styles['tab']}>Likes</button>
+        <button className={styles['tab']}>Friend Requests</button>
+        <button className={styles['tab']}>Sent Requests</button>
+      </div>
+      <div className={styles['posts']}>
+        {posts.length > 0
+          ? posts.map((post) => (
+              <SinglePost key={post._id} post={post} user={user} />
+            ))
+          : 'There are no posts'}
+      </div>
     </div>
   );
 }

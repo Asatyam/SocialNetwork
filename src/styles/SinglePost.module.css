@@ -1,6 +1,5 @@
 .container{
     padding: 10px;
-    margin:5px;
     max-height: fit-content;
     min-width: 100%;
     background-color:#fff;
@@ -27,7 +26,6 @@
 
 }
 .container div{
-    
     padding: 5px;
 }
 .post-img img{
