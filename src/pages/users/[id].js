@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { LoadingScreen } from '@/components/Loading';
 import axios from 'axios';
-import styles from '../../styles/Profile.module.css'
+import styles from '../../styles/Profile.module.css';
 import Link from 'next/link';
 import SinglePost from '@/components/SinglePost';
 import ProfileCard from '@/components/ProfileCard';
@@ -14,9 +14,10 @@ export default function Profile() {
   const [posts, setPosts] = useState([]);
   const [changeProfile, setChangeProfile] = useState(false);
   const [visible, setVisible] = useState('posts');
-  const [friends,setFriends] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const userid = router.query.id;
-  const [sameUser,setSameUser] = useState(false);
+  const [sameUser, setSameUser] = useState(false);
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     if (!token) {
@@ -27,7 +28,7 @@ export default function Profile() {
     };
     const userid = router.query.id;
     console.log(userid);
-        console.log('Done');
+    console.log('Done');
     axios
       .get(`http://localhost:4000/api/users/${userid}`, config)
       .then((res) => {
@@ -38,13 +39,20 @@ export default function Profile() {
         setSameUser(res.data.sameUser);
       })
       .catch(console.log);
-       axios
-         .get(`http://localhost:4000/api/users/${userid}/friends`, config)
-         .then((res) => {
-           setFriends(res.data.friends);
-         })
-         .catch(console.log);
-    },[userid,router]);
+    axios
+      .get(`http://localhost:4000/api/users/${userid}/friends`, config)
+      .then((res) => {
+        setFriends(res.data.friends);
+      })
+      .catch(console.log);
+    axios
+      .get(`http://localhost:4000/api/users/${userid}/likedPosts`, config)
+      .then((res) => {
+        console.log(res.data);
+        setLikedPosts(res.data.likes);
+      })
+      .catch(console.log);
+  }, [userid, router]);
 
   if (!user) {
     return <LoadingScreen />;
@@ -190,9 +198,18 @@ export default function Profile() {
       {visible === 'friends' && (
         <div className={styles['friends']}>
           {friends.length > 0
-            ?friends.map((friend)=>{
-             return  <ProfileCard key = {friend._id} account = {friend}/>
-            })
+            ? friends.map((friend) => {
+                return <ProfileCard key={friend._id} account={friend} />;
+              })
+            : 'There are no Friends'}
+        </div>
+      )}
+      {visible === 'likes' && (
+        <div className={styles['posts']}>
+          {likedPosts.length > 0
+            ? likedPosts.map((liked) => {
+                return <SinglePost key={liked._id} post={liked} user={user} />;
+              })
             : 'There are no Friends'}
         </div>
       )}
