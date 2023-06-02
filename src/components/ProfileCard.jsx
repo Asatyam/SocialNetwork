@@ -2,7 +2,6 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import styles from '../styles/ProfileCard.module.css'
-import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 

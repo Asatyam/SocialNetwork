@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useState } from "react";
 import styles from '../styles/Navbar.module.css'
 import Link from "next/link";
-import Image from "next/image";
 import axios from "axios";
 import { AuthContext } from "@/pages/context";
 
