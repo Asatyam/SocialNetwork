@@ -39,7 +39,6 @@ export default function ProfileCard({account}){
     
         axios.get(`http://localhost:4000/api/users/${user}/requests`,config)
         .then((res)=>{
-            console.log(res.data);
              const idx = res.data.requests.findIndex((req)=>req._id === account._id);
             if(idx !== -1){
                 setStatus('requesting');

@@ -18,7 +18,7 @@
     display: inline-block;
     color: #334155;
     font-size: 0.9rem;
-    font-family: 'Roboto Mono';
+    font-family: 'Source Sans Pro', 'Roboto',Arial, Helvetica, sans-serif;
     border-top: 1px solid black;
     overflow: hidden;
     max-height: 120px;

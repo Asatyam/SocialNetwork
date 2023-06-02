@@ -5,3 +5,13 @@
     padding: 20px 10px ;
     gap: 20px;
 }
+.mutuals{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 200px;
+    gap: 10px;
+    grid-auto-flow: column;
+    grid-auto-columns: 200px;
+    overflow: scroll;
+    padding: 10px;
+}
