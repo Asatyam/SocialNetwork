@@ -12,6 +12,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [changeProfile, setChangeProfile] = useState(false);
+  const [visible, setVisible] = useState('posts');
   const userid = router.query.id;
   const [sameUser,setSameUser] = useState(false);
   useEffect(() => {
@@ -95,19 +96,91 @@ export default function Profile() {
         )}
       </div>
       <div className={styles['tabs']}>
-        <button className={styles['tab']}>Posts</button>
-        <button className={styles['tab']}>Friends</button>
-        <button className={styles['tab']}>Likes</button>
-        <button className={styles['tab']}>Friend Requests</button>
-        <button className={styles['tab']}>Sent Requests</button>
+        <button
+          className={styles['tab']}
+          style={
+            visible === 'posts'
+              ? {
+                  color: '#06b6d4',
+                  borderBottom: ' 5px solid teal',
+                }
+              : {}
+          }
+          onClick={() => setVisible('posts')}
+        >
+          Posts
+        </button>
+        <button
+          className={styles['tab']}
+          style={
+            visible === 'friends'
+              ? {
+                  color: '#06b6d4',
+                  borderBottom: ' 5px solid teal',
+                }
+              : {}
+          }
+          onClick={() => setVisible('friends')}
+        >
+          Friends
+        </button>
+        <button
+          className={styles['tab']}
+          style={
+            visible === 'likes'
+              ? {
+                  color: '#06b6d4',
+                  borderBottom: ' 5px solid teal',
+                }
+              : {}
+          }
+          onClick={() => setVisible('likes')}
+        >
+          Likes
+        </button>
+        {sameUser && (
+          <button
+            className={styles['tab']}
+            onClick={() => setVisible('received')}
+            style={
+              visible == 'received'
+                ? {
+                    color: '#06b6d4',
+                    borderBottom: ' 5px solid teal',
+                  }
+                : {}
+            }
+          >
+            Friend Requests
+          </button>
+        )}
+        {sameUser && (
+          <button
+            className={styles['tab']}
+            onClick={() => setVisible('sent')}
+            style={
+              visible === 'sent'
+                ? {
+                    color: '#06b6d4',
+                    borderBottom: ' 5px solid teal',
+                  }
+                : {}
+            }
+          >
+            Sent Requests
+          </button>
+        )}
       </div>
-      <div className={styles['posts']}>
-        {posts.length > 0
-          ? posts.map((post) => (
-              <SinglePost key={post._id} post={post} user={user} />
-            ))
-          : 'There are no posts'}
-      </div>
+
+      {visible === 'posts' && (
+        <div className={styles['posts']}>
+          {posts.length > 0
+            ? posts.map((post) => (
+                <SinglePost key={post._id} post={post} user={user} />
+              ))
+            : 'There are no posts'}
+        </div>
+      )}
     </div>
   );
 }

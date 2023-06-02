@@ -19,14 +19,14 @@
     align-items: center;
     gap: 10px;
     padding: 0px 20px 10px 20px;
-    border-bottom: 1px solid;
 }
 .profile-img{
     display: flex;
 }
 .profile-img :global(.icon){
     padding-top:20px ;
-    margin-left: 10px;
+    position: relative;
+    left: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -66,9 +66,10 @@
     border-radius: 8px;
 }
 .tabs {
-    margin-bottom:5px;
+    margin:5px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-flow: column;
     background-color: rgba(50, 50, 50, .8);
 }
 

@@ -13,7 +13,7 @@ export default function SinglePost({post,user}){
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
         setSameUser(false);
-        if(post.author._id === user){
+        if(author._id === user){
             setSameUser(true);
         }
         const token = JSON.parse(localStorage.getItem('token'));
@@ -24,7 +24,7 @@ export default function SinglePost({post,user}){
         .then(res=>{
             setComments(res.data.comments);  
         }).catch(console.log);
-    },[setSameUser,post._id,post.author._id])
+    },[sameUser,setSameUser,post._id,author])
 
     const showPost = (e)=>{
         router.push(`/posts/${post._id}`);
