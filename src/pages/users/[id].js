@@ -27,7 +27,6 @@ export default function Profile() {
     };
     const userid = router.query.id;
     console.log(userid);
-    if(!user){
         console.log('Done');
     axios
       .get(`http://localhost:4000/api/users/${userid}`, config)
@@ -45,8 +44,7 @@ export default function Profile() {
            setFriends(res.data.friends);
          })
          .catch(console.log);
-    }
-    });
+    },[userid,router]);
 
   if (!user) {
     return <LoadingScreen />;
