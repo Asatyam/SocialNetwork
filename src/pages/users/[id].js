@@ -6,6 +6,7 @@ import axios from 'axios';
 import styles from '../../styles/Profile.module.css'
 import Link from 'next/link';
 import SinglePost from '@/components/SinglePost';
+import ProfileCard from '@/components/ProfileCard';
 
 export default function Profile() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function Profile() {
   const [posts, setPosts] = useState([]);
   const [changeProfile, setChangeProfile] = useState(false);
   const [visible, setVisible] = useState('posts');
+  const [friends,setFriends] = useState([]);
   const userid = router.query.id;
   const [sameUser,setSameUser] = useState(false);
   useEffect(() => {
@@ -37,6 +39,12 @@ export default function Profile() {
         setSameUser(res.data.sameUser);
       })
       .catch(console.log);
+       axios
+         .get(`http://localhost:4000/api/users/${userid}/friends`, config)
+         .then((res) => {
+           setFriends(res.data.friends);
+         })
+         .catch(console.log);
     }
     });
 
@@ -179,6 +187,15 @@ export default function Profile() {
                 <SinglePost key={post._id} post={post} user={user} />
               ))
             : 'There are no posts'}
+        </div>
+      )}
+      {visible === 'friends' && (
+        <div className={styles['friends']}>
+          {friends.length > 0
+            ?friends.map((friend)=>{
+             return  <ProfileCard key = {friend._id} account = {friend}/>
+            })
+            : 'There are no Friends'}
         </div>
       )}
     </div>
