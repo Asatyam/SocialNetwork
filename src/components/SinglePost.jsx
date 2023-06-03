@@ -9,6 +9,8 @@ import formatDate from "@/utils/formatDate";
 export default function SinglePost({post,user}){
     const [comments,setComments] = useState([]);
     const [sameUser, setSameUser] = useState('false');
+    const [likes, setLikes] = useState([]);
+    const [showLikes,setShowLikes] = useState(false);
     const router = useRouter();
     const author = user?user:post.author;
     useEffect(()=>{
@@ -41,6 +43,7 @@ export default function SinglePost({post,user}){
     },[post.likes]);
 
     const handleLike = (e)=>{
+        
         const token = JSON.parse(localStorage.getItem('token'));
         const config = {
             headers: { Authorization: `Bearer ${token}`}
@@ -62,6 +65,7 @@ export default function SinglePost({post,user}){
                 });
             }
         });
+        
     }
     const deletePost = (e)=>{
 
@@ -75,6 +79,20 @@ export default function SinglePost({post,user}){
         .then(console.log)
         .catch(console.log)
         }
+    }
+    const displayLikes = (e)=>{
+        e.stopPropagation();
+         const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: { Authorization: `Bearer ${token}`}
+        }
+        axios.get(`http://localhost:4000/api/posts/${post._id}`,config)
+        .then((res)=>{
+            setLikes(res.data.post.likes);
+            setShowLikes(true);
+        })
+        .catch(console.log);
+
     }
     return (
         <div className={styles['container']}  >
@@ -91,12 +109,20 @@ export default function SinglePost({post,user}){
           </div>
           <div className={styles['details']}>
                 <button className='icon' onClick={handleLike} style ={{color: color}}>
-                    <img src='../../images/like.png' alt='likes'/> {post.likes.length}
+                    <img src='../../images/like.png' alt='likes'/> <p onClick={displayLikes} style={{fontSize:'1.1rem',alignSelf:'center'}} >{post.likes.length}</p>
                 </button>
                 <p>{formatDate(new Date(post.date)) }</p>
                 <button className='icon'><img src='../../images/comment.png' alt='comments'/> {comments.length}</button>
                 {sameUser && <button className='icon' onClick={deletePost}><img src='../../images/delete.png' alt='delete'/> </button>}
           </div>
+          {showLikes && <div className={styles['likes-users']}>
+                <h2>Likes</h2>
+                <ul>
+                     {likes.map(like=><li key={like._id} onClick={(e)=>setShowLikes(false)}><Link href={`/users/${like._id}`}>{like.first_name + ' ' + like.last_name}</Link></li>)}
+                </ul> 
+                <button className='icon' onClick={(e)=>{setShowLikes(false)}}><img src='../../images/cancel.png' alt = 'close-btn'/></button>
+            </div>
+            }
         </div>
     )
 }

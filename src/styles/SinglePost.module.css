@@ -1,4 +1,5 @@
 .container{
+    position: relative;
     padding: 10px;
     max-height: fit-content;
     width: 100%;
@@ -63,4 +64,35 @@
     top:2px;
     align-items: center;
     background: transparent;
+}
+.likes-users{
+    position: fixed;
+    overflow: scroll;
+    width: 200px;
+    top:60%;
+    left:50%;
+    margin-top: -200px;
+    margin-left:-100px;
+    background-color: #334155;
+    color:white;
+    z-index: 2;
+    padding: 16px;
+}
+.likes-users h2{
+    text-align: center;
+}
+.likes-users ul{
+    padding:20px;
+}
+.likes-users ul{
+    text-decoration: none;
+    list-style: none;
+}
+.likes-users li{
+    margin-bottom: 15px;
+}
+.likes-users>button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
