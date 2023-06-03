@@ -1,6 +1,22 @@
 .profile{
    min-height: 100vh;
     background-color:#fff ;
+    position: relative;
+}
+.focus-check {
+    position: fixed;
+    font-family: "Helvetica" sans-serif;
+    width: 400px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -200px;
+
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
 }
 .cover{
     height: 150px;
@@ -11,6 +27,9 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+.profile-icons{
+    margin-top: 40px;
 }
 .info{
     margin-top: -50px;
@@ -104,6 +123,4 @@
     grid-template-rows: 1fr;
     gap: 10px;
     grid-auto-rows: 1fr;
-        
-    
 }

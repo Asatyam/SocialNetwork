@@ -16,7 +16,7 @@ export default function Signup() {
         confirm: '',
     }
   const [form, setForm] = useState(initial);
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState([]);
 
   const router = useRouter();
   /*To do Client side validation */
@@ -44,7 +44,7 @@ export default function Signup() {
        .then((res) => {
          localStorage.setItem('token', JSON.stringify(res.data.token));
          localStorage.setItem('user', JSON.stringify(res.data.user._id));
-         setErrors('');
+         setErrors([]);
          router.push('/');
        })
        .catch((err) => {

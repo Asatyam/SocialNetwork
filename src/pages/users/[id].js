@@ -6,13 +6,14 @@ import axios from 'axios';
 import styles from '../../styles/Profile.module.css';
 import Link from 'next/link';
 import SinglePost from '@/components/SinglePost';
+import UpdateProfile from '@/components/UpdateProfile';
 import ProfileCard from '@/components/ProfileCard';
 
 export default function Profile() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [changeProfile, setChangeProfile] = useState(false);
+  const [showForm, setShowForm] = useState(true);
   const [visible, setVisible] = useState('posts');
   const [friends, setFriends] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
@@ -75,179 +76,186 @@ export default function Profile() {
     return <LoadingScreen />;
   }
   return (
-    <div className={styles['profile']}>
-      {changeProfile && (
-        <div className={styles['update-profile-photo']}>
-          <input type="file" Change profile photo />
+    <div className={styles['main']}>
+      {showForm && (
+        <div className={styles['focus-check']}>
+          <UpdateProfile setShowForm={setShowForm} />
         </div>
       )}
-      <div className={styles['cover']}>
-        <img
-          className={styles['cover-img']}
-          src="../../images/placeholder.png"
-          alt="cover-img"
-        />
-      </div>
-      <div className={styles['info']}>
-        <div className={styles['profile-img']}>
-          <img src="../../images/profile.png" alt="profile-img" />
-          {sameUser && (
+      <div
+        className={styles['profile']}
+        style={showForm ? { filter: 'blur(3px)' } : {}}
+      >
+        <div className={styles['cover']}>
+          <img
+            className={styles['cover-img']}
+            src="../../images/placeholder.png"
+            alt="cover-img"
+          />
+        </div>
+
+        <div className={styles['info']}>
+          <div className={styles['profile-img']}>
+            <img src="../../images/profile.png" alt="profile-img" />
+            {sameUser && (
+              <button className="icon" onClick={() => setShowForm(true)}>
+                <img src="/images/edit.png" alt="edit-profile-icon" />
+              </button>
+            )}
+          </div>
+          <div className={styles['user-info']}>
+            <h2 className={styles['profile-name']}>
+              {user.first_name + ' ' + user.last_name}
+            </h2>
+            <p>{friends.length} friends</p>
             <button className="icon">
-              <img src="/images/edit.png" alt="edit-profile-icon" />
-              <img src="/images/delete.png" alt="delete-profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+              <img src="/images/profile.png" alt="profile-icon" />
+            </button>
+          </div>
+          {sameUser && (
+            <div className={styles['actions']}>
+              <button>Add to your story</button>
+              <button>Update Profile</button>
+            </div>
+          )}
+          {!sameUser && (
+            <div className={styles['actions']}>
+              <button>Add friends</button>
+              <button>Message</button>
+            </div>
+          )}
+        </div>
+        <div className={styles['tabs']}>
+          <button
+            className={styles['tab']}
+            style={
+              visible === 'posts'
+                ? {
+                    color: '#06b6d4',
+                    borderBottom: ' 5px solid teal',
+                  }
+                : {}
+            }
+            onClick={() => setVisible('posts')}
+          >
+            Posts
+          </button>
+          <button
+            className={styles['tab']}
+            style={
+              visible === 'friends'
+                ? {
+                    color: '#06b6d4',
+                    borderBottom: ' 5px solid teal',
+                  }
+                : {}
+            }
+            onClick={() => setVisible('friends')}
+          >
+            Friends
+          </button>
+          <button
+            className={styles['tab']}
+            style={
+              visible === 'likes'
+                ? {
+                    color: '#06b6d4',
+                    borderBottom: ' 5px solid teal',
+                  }
+                : {}
+            }
+            onClick={() => setVisible('likes')}
+          >
+            Likes
+          </button>
+          {sameUser && (
+            <button
+              className={styles['tab']}
+              onClick={() => setVisible('received')}
+              style={
+                visible == 'received'
+                  ? {
+                      color: '#06b6d4',
+                      borderBottom: ' 5px solid teal',
+                    }
+                  : {}
+              }
+            >
+              Friend Requests
+            </button>
+          )}
+          {sameUser && (
+            <button
+              className={styles['tab']}
+              onClick={() => setVisible('sent')}
+              style={
+                visible === 'sent'
+                  ? {
+                      color: '#06b6d4',
+                      borderBottom: ' 5px solid teal',
+                    }
+                  : {}
+              }
+            >
+              Sent Requests
             </button>
           )}
         </div>
-        <div className={styles['user-info']}>
-          <h2 className={styles['profile-name']}>
-            {user.first_name + ' ' + user.last_name}
-          </h2>
-          <p>{friends.length} friends</p>
-          <button className="icon">
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-            <img src="/images/profile.png" alt="profile-icon" />
-          </button>
-        </div>
-        {sameUser && (
-          <div className={styles['actions']}>
-            <button>Add to your story</button>
-            <button>Update Profile</button>
-          </div>
-        )}
-        {!sameUser && (
-          <div className={styles['actions']}>
-            <button>Add friends</button>
-            <button>Message</button>
-          </div>
-        )}
-      </div>
-      <div className={styles['tabs']}>
-        <button
-          className={styles['tab']}
-          style={
-            visible === 'posts'
-              ? {
-                  color: '#06b6d4',
-                  borderBottom: ' 5px solid teal',
-                }
-              : {}
-          }
-          onClick={() => setVisible('posts')}
-        >
-          Posts
-        </button>
-        <button
-          className={styles['tab']}
-          style={
-            visible === 'friends'
-              ? {
-                  color: '#06b6d4',
-                  borderBottom: ' 5px solid teal',
-                }
-              : {}
-          }
-          onClick={() => setVisible('friends')}
-        >
-          Friends
-        </button>
-        <button
-          className={styles['tab']}
-          style={
-            visible === 'likes'
-              ? {
-                  color: '#06b6d4',
-                  borderBottom: ' 5px solid teal',
-                }
-              : {}
-          }
-          onClick={() => setVisible('likes')}
-        >
-          Likes
-        </button>
-        {sameUser && (
-          <button
-            className={styles['tab']}
-            onClick={() => setVisible('received')}
-            style={
-              visible == 'received'
-                ? {
-                    color: '#06b6d4',
-                    borderBottom: ' 5px solid teal',
-                  }
-                : {}
-            }
-          >
-            Friend Requests
-          </button>
-        )}
-        {sameUser && (
-          <button
-            className={styles['tab']}
-            onClick={() => setVisible('sent')}
-            style={
-              visible === 'sent'
-                ? {
-                    color: '#06b6d4',
-                    borderBottom: ' 5px solid teal',
-                  }
-                : {}
-            }
-          >
-            Sent Requests
-          </button>
-        )}
-      </div>
 
-      {visible === 'posts' && (
-        <div className={styles['posts']}>
-          {posts.length > 0
-            ? posts.map((post) => (
-                <SinglePost key={post._id} post={post} user={user} />
-              ))
-            : 'There are no posts'}
-        </div>
-      )}
-      {visible === 'friends' && (
-        <div className={styles['friends']}>
-          {friends.length > 0
-            ? friends.map((friend) => {
-                return <ProfileCard key={friend._id} account={friend} />;
-              })
-            : 'There are no Friends'}
-        </div>
-      )}
-      {visible === 'likes' && (
-        <div className={styles['posts']}>
-          {likedPosts.length > 0
-            ? likedPosts.map((liked) => {
-                return <SinglePost key={liked._id} post={liked} user={user} />;
-              })
-            : 'There are no liked posts'}
-        </div>
-      )}
-      {visible === 'received' && (
-        <div className={styles['friends']}>
-          {requests.length > 0
-            ? requests.map((request) => {
-                return <ProfileCard key={request._id} account={request} />;
-              })
-            : 'There are no Requests'}
-        </div>
-      )}
-      {visible === 'sent' && (
-        <div className={styles['friends']}>
-          {sent.length > 0
-            ? sent.map((sent) => {
-                return <ProfileCard key={sent._id} account={sent} />;
-              })
-            : 'You have not sent any requests'}
-        </div>
-      )}
+        {visible === 'posts' && (
+          <div className={styles['posts']}>
+            {posts.length > 0
+              ? posts.map((post) => (
+                  <SinglePost key={post._id} post={post} user={user} />
+                ))
+              : 'There are no posts'}
+          </div>
+        )}
+        {visible === 'friends' && (
+          <div className={styles['friends']}>
+            {friends.length > 0
+              ? friends.map((friend) => {
+                  return <ProfileCard key={friend._id} account={friend} />;
+                })
+              : 'There are no Friends'}
+          </div>
+        )}
+        {visible === 'likes' && (
+          <div className={styles['posts']}>
+            {likedPosts.length > 0
+              ? likedPosts.map((liked) => {
+                  return (
+                    <SinglePost key={liked._id} post={liked} user={user} />
+                  );
+                })
+              : 'There are no liked posts'}
+          </div>
+        )}
+        {visible === 'received' && (
+          <div className={styles['friends']}>
+            {requests.length > 0
+              ? requests.map((request) => {
+                  return <ProfileCard key={request._id} account={request} />;
+                })
+              : 'There are no Requests'}
+          </div>
+        )}
+        {visible === 'sent' && (
+          <div className={styles['friends']}>
+            {sent.length > 0
+              ? sent.map((sent) => {
+                  return <ProfileCard key={sent._id} account={sent} />;
+                })
+              : 'You have not sent any requests'}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
