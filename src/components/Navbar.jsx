@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useState } from "react";
 import styles from '../styles/Navbar.module.css'
 import Link from "next/link";
 import axios from "axios";
 import { AuthContext } from "@/pages/context";
+import { useRouter } from "next/router";
 
 
 export default function Navbar(){
@@ -12,6 +13,7 @@ export default function Navbar(){
 
     const [search, setSearch] = useState('');
     const {setAuth} = useContext(AuthContext);
+    const router = useRouter();
     let userid;
     if(typeof window !=='undefined'){
         const user = JSON.parse(localStorage.getItem('user'));
@@ -24,6 +26,7 @@ export default function Navbar(){
            }
            localStorage.clear();
            setAuth(false);
+           router.push('/login');
         axios.post('http://localhost:4000/api/logout',config)
         .catch(console.log);
     }

@@ -28,6 +28,7 @@ export default function ProfileCard({account}){
                 setStatus('friend');
             }
         })
+        .catch(console.log);
         axios.get(`http://localhost:4000/api/users/${user}/sentRequests`,config)
         .then(res=>{
             const idx = res.data.sentRequests.findIndex((req)=>req._id === account._id);
