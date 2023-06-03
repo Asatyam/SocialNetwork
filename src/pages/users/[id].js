@@ -13,7 +13,7 @@ export default function Profile() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const [visible, setVisible] = useState('posts');
   const [friends, setFriends] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
@@ -96,12 +96,10 @@ export default function Profile() {
 
         <div className={styles['info']}>
           <div className={styles['profile-img']}>
-            <img src="../../images/profile.png" alt="profile-img" />
-            {sameUser && (
-              <button className="icon" onClick={() => setShowForm(true)}>
-                <img src="/images/edit.png" alt="edit-profile-icon" />
-              </button>
-            )}
+            <img
+              src={user.image_url ? user.image_url : '../../images/profile.png'}
+              alt="profile-img"
+            />
           </div>
           <div className={styles['user-info']}>
             <h2 className={styles['profile-name']}>
@@ -120,8 +118,8 @@ export default function Profile() {
           </div>
           {sameUser && (
             <div className={styles['actions']}>
-              <button>Add to your story</button>
-              <button>Update Profile</button>
+              <button onClick={() => setShowForm(true)}>Update Profile</button>
+              <button>Remove Profile Photo</button>
             </div>
           )}
           {!sameUser && (

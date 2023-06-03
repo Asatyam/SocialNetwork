@@ -1,0 +1,89 @@
+.container{
+    height: 400px;
+    width: 400px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 5px solid teal;
+}
+.container header{
+    width: 100%;
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 2px solid teal;
+}
+.container header button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+
+.form-container form {
+    padding: 20px;
+    height: 100%;
+
+    display: grid;
+    gap: 20px;
+}
+
+.form-btn {
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
+
+.form-item {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    font-weight: lighter;
+}
+
+.form-item label {
+    font-size: 1.2rem;
+}
+
+.form-item input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid teal;
+    background: transparent;
+    color: #334155;
+
+    font-family: "Source Sans Pro", "Roboto", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+}
+
+.form-item input:focus {
+    outline: none;
+    border-bottom: 4px solid teal;
+}
+
+.form-item input::placeholder {
+    font-size: 1.1rem;
+}
+
+.form-btn {
+    font-size: 1.3rem;
+    width: 70%;
+    justify-self: center;
+    align-self: flex-start;
+    background-color: #115e59;
+}
+.container label img {
+    height: 25px;
+    width: 25px;
+}
+.form-container form input[type='file']{
+    border: none;
+    align-self: center;
+    position: relative;
+    margin-top: 10px;
+    left: 60px;
+}
