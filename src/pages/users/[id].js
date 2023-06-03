@@ -75,11 +75,25 @@ export default function Profile() {
   if (!user) {
     return <LoadingScreen />;
   }
+  const removeProfilePhoto =(e)=>{
+    const isSure = confirm('Are you sure you want to remove profile photo?');
+    console.log(isSure);
+    if(isSure){
+       const token = JSON.parse(localStorage.getItem('token'));
+       const user = JSON.parse(localStorage.getItem('user'));
+      const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+      axios.patch(`http://localhost:4000/api/users/${router.query.id}/deletePhoto`,undefined,config)
+      .then(console.log)
+      .catch(console.log)
+    }
+  }
   return (
     <div className={styles['main']}>
       {showForm && (
         <div className={styles['focus-check']}>
-          <UpdateProfile setShowForm={setShowForm} />
+          <UpdateProfile user={user} setShowForm={setShowForm} />
         </div>
       )}
       <div
@@ -119,7 +133,7 @@ export default function Profile() {
           {sameUser && (
             <div className={styles['actions']}>
               <button onClick={() => setShowForm(true)}>Update Profile</button>
-              <button>Remove Profile Photo</button>
+              <button onClick= {removeProfilePhoto}>Remove Profile Photo</button>
             </div>
           )}
           {!sameUser && (

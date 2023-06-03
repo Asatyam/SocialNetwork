@@ -4,11 +4,11 @@ import { useState } from "react";
 import styles from '../styles/UpdateProfile.module.css'
 import axios from "axios";
 
-export default function UpdateProfile({setShowForm}){
+export default function UpdateProfile({user, setShowForm}){
 
     const [file,setFile] = useState(null);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState(user.first_name);
+    const [lastName, setLastName] = useState(user.last_name);
 
     const [errors,setErrors] = useState([]);
 
@@ -33,10 +33,10 @@ export default function UpdateProfile({setShowForm}){
            }
            axios.post(`http://localhost:4000/api/users/${user}/editProfile`,formData,config)
            .then((res)=>{
+                setShowForm(false);
                 console.log(res);
                 setFirstName('');
-                setLastName('');
-                setShowForm(false);
+                setLastName('');     
            })
            .catch((err)=>{
             console.log(err);
