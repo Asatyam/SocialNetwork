@@ -68,7 +68,7 @@ export default function Login(){
                     <button type='submit' className={styles['form-btn']}>Login</button>
                     {errors && <p className={styles['error']}>{errors.message} </p>}
                 </form>
-                <button className={styles['new-account']}>Create new Account</button>
+                <button className={styles['new-account']} onClick = {()=>{router.push('/signup')}}>Create new Account</button>
             </div>
        </div>
     )

@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 export default function Layout({children}){
 
     const router = useRouter();
-    const showNav = router.pathname === '/login' ? false : true;
+    const showNav = (router.pathname === '/login' || router.pathname === '/signup') ? false : true;
 
     return(
        <div className={styles.layout}>
