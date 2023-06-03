@@ -8,6 +8,7 @@ import { AuthContext } from "@/pages/context";
 import { useRouter } from "next/router";
 
 
+
 export default function Navbar(){
 
 
@@ -16,6 +17,8 @@ export default function Navbar(){
     const {setAuth} = useContext(AuthContext);
     const [results,setResults] = useState([]);
     const [showResults, setShowResults] = useState(true);
+    const searchRef = useRef(null);
+
     const router = useRouter();
     let userid;
     if(typeof window !=='undefined'){
@@ -50,12 +53,8 @@ export default function Navbar(){
                 if(condition1 || condition2){
                     setResults(r=>[...r,users[i]])
                 }
-                console.log({searchValue,condition1,condition2, first_name,last_name})
-               
             }
         }
-        console.log(results);
-         console.log('-------------------------------------');
        
     }
     const handleLogout = (e)=>{
@@ -69,17 +68,30 @@ export default function Navbar(){
         axios.post('http://localhost:4000/api/logout',config)
         .catch(console.log);
     }
+
+    
+    if(typeof window !=='undefined')
+    {
+    document.addEventListener('click',(evt)=>{
+        if(showResults && searchRef.current){
+            const isClickInside = searchRef.current.contains(evt.target);
+            if(!isClickInside){
+                setShowResults(false);
+            }
+        }
+    })
+    }
     return(
-            <nav className={styles['main-nav']}>
+            <nav  className={styles['main-nav']}>
                 <h1><Link href = '/'>Odinbook</Link></h1>
                 <div className={styles['search']}>
                     <div className={styles['search-box']}>
                          <input type="search" name='search' value={search} onChange={searchUsers} placeholder="Search"/>
                    </div>
-                    {results.length>0 && showResults && <div className={styles['search-results']}>
+                    {results.length>0 && showResults && <div className={styles['search-results']} ref={searchRef}>
                     {results.map(
                     result=>(
-                         <p key={result._id} onClick={(e)=>setShowResults(false)}>
+                         <p key={result._id}>
                             <Link href={`users/${result._id}`}>{result.first_name + ' ' + result.last_name}</Link>
                         </p>
                     ))}
