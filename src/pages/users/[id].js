@@ -8,6 +8,7 @@ import Link from 'next/link';
 import SinglePost from '@/components/SinglePost';
 import UpdateProfile from '@/components/UpdateProfile';
 import ProfileCard from '@/components/ProfileCard';
+import FriendStatus from '@/components/FriendStatus';
 
 export default function Profile() {
   const router = useRouter();
@@ -138,8 +139,7 @@ export default function Profile() {
           )}
           {!sameUser && (
             <div className={styles['actions']}>
-              <button>Add friends</button>
-              <button>Message</button>
+              <FriendStatus account={user}/>
             </div>
           )}
         </div>
