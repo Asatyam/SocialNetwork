@@ -29,14 +29,16 @@ export default function Feed(){
     },[])
 
     return (
-        <div className={styles['container']}>
-            <h2>People you may know</h2>
-            <div className={styles['mutuals']}>
-                {mutuals.length>0 && mutuals.map(mutual=>{
-                    return <ProfileCard key={mutual._id} account={mutual} />
-                })}
+        <div className={styles['main']}>
+            <div>
+                <h2>People you may know</h2>
+                <div className={styles['mutuals']}>
+                    {mutuals.length>0 && mutuals.map(mutual=>{
+                        return <ProfileCard key={mutual._id} account={mutual} />
+                    })}
+                </div>
             </div>
-           { feed.length>0?feed.map(post=><SinglePost key = {post._id} post = {post} />):'There are no posts'}
+           <div className={styles['container']}>{ feed.length>0?feed.map(post=><SinglePost key = {post._id} post = {post} />):'There are no posts'}</div>
         </div>
     )
 }
