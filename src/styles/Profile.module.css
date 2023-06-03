@@ -115,6 +115,7 @@
     margin-right:5px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
     margin: 10px;
 }
