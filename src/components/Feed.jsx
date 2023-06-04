@@ -16,12 +16,12 @@ export default function Feed(){
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         }
-        axios.get('http://localhost:4000/api/feed',config)
+        axios.get('https://socialnetwork-api-r5ve.onrender.com/api/feed',config)
         .then((res)=>{
             setFeed(res.data.friendsPosts);
         },[])
         .catch(console.log);
-        axios.get(`http://localhost:4000/api/users/${user}/mutuals`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}/mutuals`,config)
         .then(res=>{
             setMutuals(res.data);
         })

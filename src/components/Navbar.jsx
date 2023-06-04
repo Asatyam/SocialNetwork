@@ -30,7 +30,7 @@ export default function Navbar(){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.get('http://localhost:4000/api/users',config)
+        axios.get('https://socialnetwork-api-r5ve.onrender.com/api/users',config)
         .then((res)=>{
             setUsers(res.data.users);
         }) 
@@ -64,7 +64,7 @@ export default function Navbar(){
            localStorage.clear();
            setAuth(false);
            router.push('/login');
-        axios.post('http://localhost:4000/api/logout',config)
+        axios.post('https://socialnetwork-api-r5ve.onrender.com/api/logout',config)
         .catch(console.log);
     }
 

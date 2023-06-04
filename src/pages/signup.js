@@ -38,7 +38,7 @@ export default function Signup() {
     e.preventDefault();
     const body = form;
     axios
-      .post('http://localhost:4000/api/signup', body)
+      .post('https://socialnetwork-api-r5ve.onrender.com/api/signup', body)
       .then((res) => {
         localStorage.setItem('token', JSON.stringify(res.data.token));
         localStorage.setItem('user', JSON.stringify(res.data.user._id));

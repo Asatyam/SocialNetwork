@@ -20,7 +20,7 @@ export default function SinglePost({post}){
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
-        axios.get(`http://localhost:4000/api/posts/${post._id}/comments`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/comments`,config)
         .then(res=>{
             setComments(res.data.comments);  
         }).catch(console.log);
@@ -44,14 +44,14 @@ export default function SinglePost({post}){
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
-        axios.patch(`http://localhost:4000/api/posts/${post._id}/like`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/like`,{},config)
         .then((res)=>{
            setColor('red');
             
         }).catch((err)=>{
             console.log(err);
             if(err.response.status === 403){
-                axios.patch(`http://localhost:4000/api/posts/${post._id}/unlike`,{},config)
+                axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/unlike`,{},config)
                 .then((res)=>{
                     setColor('black');
                 })
@@ -67,7 +67,7 @@ export default function SinglePost({post}){
         }
         const isSure = confirm('Are you sure you want to delete this comment \n' + post.content);
         if(isSure){
-            axios.delete(`http://localhost:4000/api/posts/${post._id}`,config)
+            axios.delete(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}`,config)
         .then(console.log)
         .catch(console.log)
         }

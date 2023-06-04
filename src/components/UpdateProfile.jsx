@@ -30,7 +30,7 @@ export default function UpdateProfile({user, setShowForm}){
                 headers: {Authorization: `Bearer ${token}`},
                 'Content-Type': 'multipart/form-data'
            }
-           axios.post(`http://localhost:4000/api/users/${user}/editProfile`,formData,config)
+           axios.post(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}/editProfile`,formData,config)
            .then((res)=>{
                 setShowForm(false);
                 setFirstName('');

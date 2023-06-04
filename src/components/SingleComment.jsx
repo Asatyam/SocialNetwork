@@ -25,13 +25,13 @@ export default function SingleComment({comment, post}){
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         }
-        axios.patch(`http://localhost:4000/api/posts/${post._id}/comments/${comment._id}/like`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/comments/${comment._id}/like`,{},config)
         .then((res)=>{
            setColor('red');
             
         }).catch((err)=>{
             if(err.response.status === 402){
-                axios.patch(`http://localhost:4000/api/posts/${post._id}/comments/${comment._id}/unlike`,{},config)
+                axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/comments/${comment._id}/unlike`,{},config)
                 .then((res)=>{
                     setColor('white');
                 })
@@ -47,7 +47,7 @@ export default function SingleComment({comment, post}){
         }
         const isSure = confirm('Are you sure you want to delete this comment \n' + comment.content);
         if(isSure){
-            axios.delete(`http://localhost:4000/api/posts/${post._id}/comments/${comment._id}`,config)
+            axios.delete(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/comments/${comment._id}`,config)
         .then(console.log)
         .catch(console.log)
         }

@@ -12,7 +12,7 @@ export default function CommentForm({post}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-           axios.post(`http://localhost:4000/api/posts/${post._id}/comments`,{content},config)
+           axios.post(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${post._id}/comments`,{content},config)
            .then((res)=>{
                 setContent('');
            })

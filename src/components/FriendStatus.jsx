@@ -19,7 +19,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.get(`http://localhost:4000/api/users/${user}`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}`,config)
         .then(res=>{
             setCurrUser(res.data.user);
             const idx = res.data.user.friends.includes(account._id);
@@ -28,7 +28,7 @@ export default function FriendStatus({account}){
             }
         })
         .catch(console.log);
-        axios.get(`http://localhost:4000/api/users/${user}/sentRequests`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}/sentRequests`,config)
         .then(res=>{
             const idx = res.data.sentRequests.findIndex((req)=>req._id === account._id);
             if(idx !== -1){
@@ -37,7 +37,7 @@ export default function FriendStatus({account}){
         })
         .catch(console.log) 
     
-        axios.get(`http://localhost:4000/api/users/${user}/requests`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}/requests`,config)
         .then((res)=>{
              const idx = res.data.requests.findIndex((req)=>req._id === account._id);
             if(idx !== -1){
@@ -52,7 +52,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.patch(`http://localhost:4000/api/users/${account._id}/removeFriend`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/users/${account._id}/removeFriend`,{},config)
         .then((res)=>{
             setStatus('');
         })
@@ -63,7 +63,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.patch(`http://localhost:4000/api/users/${account._id}/sendRequest`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/users/${account._id}/sendRequest`,{},config)
         .then((res)=>{
             setStatus('requested');
         })
@@ -74,7 +74,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.patch(`http://localhost:4000/api/users/${account._id}/cancelRequest`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/users/${account._id}/cancelRequest`,{},config)
         .then((res)=>{
             setStatus('');
         })
@@ -85,7 +85,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.patch(`http://localhost:4000/api/users/${account._id}/acceptRequest`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/users/${account._id}/acceptRequest`,{},config)
         .then((res)=>{
             setStatus('friend');
         })
@@ -96,7 +96,7 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        axios.patch(`http://localhost:4000/api/users/${account._id}/rejectRequest`,{},config)
+        axios.patch(`https://socialnetwork-api-r5ve.onrender.com/api/users/${account._id}/rejectRequest`,{},config)
         .then((res)=>{
             setStatus('');
         })

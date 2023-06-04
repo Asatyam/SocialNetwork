@@ -19,11 +19,11 @@ export default function Posts(){
                 headers: {Authorization: `Bearer ${token}`}
            }
         const postid = router.query.id;
-        axios.get(`http://localhost:4000/api/posts/${postid}`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${postid}`,config)
         .then((res)=>{
             setPost(res.data.post);
         }).catch(console.log);
-        axios.get(`http://localhost:4000/api/posts/${postid}/comments`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/posts/${postid}/comments`,config)
         .then((res)=>{
             setComments(res.data.comments);
         }).catch(console.log);

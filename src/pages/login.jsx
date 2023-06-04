@@ -34,7 +34,7 @@ export default function Login(){
 
         e.preventDefault();
         const body = {email, password};
-        axios.post('http://localhost:4000/api/login',body)
+        axios.post('https://socialnetwork-api-r5ve.onrender.com/api/login',body)
         .then((res)=>{
             setAuth(true);
             localStorage.setItem('token',JSON.stringify(res.data.token));

@@ -11,7 +11,7 @@ export default function Mutuals(){
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         }
-        axios.get(`http://localhost:4000/api/users/${user}/getMutuals`,config)
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${user}/getMutuals`,config)
         .then((res)=>{
             setMutuals(res.data);
         }).catch(console.log)

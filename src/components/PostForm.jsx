@@ -25,7 +25,7 @@ export default function PostForm({setShowForm}){
                 headers: {Authorization: `Bearer ${token}`},
                 'Content-Type': 'multipart/form-data'
            }
-           axios.post(`http://localhost:4000/api/posts`,formData,config)
+           axios.post(`https://socialnetwork-api-r5ve.onrender.com/api/posts`,formData,config)
            .then((res)=>{
                 setContent('');
                 setShowForm(false);

@@ -18,7 +18,7 @@ export default function Profile() {
   const [visible, setVisible] = useState('posts');
   const [friends, setFriends] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
-  const [requests,setRequests] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [sent, setSent] = useState([]);
   const userid = router.query.id;
   const [sameUser, setSameUser] = useState(false);
@@ -32,7 +32,10 @@ export default function Profile() {
     };
     const userid = router.query.id;
     axios
-      .get(`http://localhost:4000/api/users/${userid}`, config)
+      .get(
+        `https://socialnetwork-api-r5ve.onrender.com/api/users/${userid}`,
+        config
+      )
       .then((res) => {
         // setPost(res.data.post);
         setUser(res.data.user);
@@ -41,50 +44,66 @@ export default function Profile() {
       })
       .catch(console.log);
     axios
-      .get(`http://localhost:4000/api/users/${userid}/friends`, config)
+      .get(
+        `https://socialnetwork-api-r5ve.onrender.com/api/users/${userid}/friends`,
+        config
+      )
       .then((res) => {
         setFriends(res.data.friends);
       })
       .catch(console.log);
     axios
-      .get(`http://localhost:4000/api/users/${userid}/likedPosts`, config)
+      .get(
+        `https://socialnetwork-api-r5ve.onrender.com/api/users/${userid}/likedPosts`,
+        config
+      )
       .then((res) => {
         setLikedPosts(res.data.likes);
       })
       .catch(console.log);
-      if(sameUser)
-      {
-    axios
-      .get(`http://localhost:4000/api/users/${userid}/requests`, config)
-      .then((res) => {
-        setRequests(res.data.requests);
-      })
-      .catch(console.log);
+    if (sameUser) {
       axios
-        .get(`http://localhost:4000/api/users/${userid}/sentRequests`, config)
+        .get(
+          `https://socialnetwork-api-r5ve.onrender.com/api/users/${userid}/requests`,
+          config
+        )
+        .then((res) => {
+          setRequests(res.data.requests);
+        })
+        .catch(console.log);
+      axios
+        .get(
+          `https://socialnetwork-api-r5ve.onrender.com/api/users/${userid}/sentRequests`,
+          config
+        )
         .then((res) => {
           setSent(res.data.sentRequests);
         })
         .catch(console.log);
     }
-  }, [userid, router,sameUser]);
+  }, [userid, router, sameUser]);
 
   if (!user) {
     return <LoadingScreen />;
   }
-  const removeProfilePhoto =(e)=>{
+  const removeProfilePhoto = (e) => {
     const isSure = confirm('Are you sure you want to remove profile photo?');
-    if(isSure){
-       const token = JSON.parse(localStorage.getItem('token'));
-       const user = JSON.parse(localStorage.getItem('user'));
+    if (isSure) {
+      const token = JSON.parse(localStorage.getItem('token'));
+      const user = JSON.parse(localStorage.getItem('user'));
       const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-      axios.patch(`http://localhost:4000/api/users/${router.query.id}/deletePhoto`,undefined,config)
-      .then(console.log)
-      .catch(console.log)
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      axios
+        .patch(
+          `https://socialnetwork-api-r5ve.onrender.com/api/users/${router.query.id}/deletePhoto`,
+          undefined,
+          config
+        )
+        .then(console.log)
+        .catch(console.log);
     }
-  }
+  };
   return (
     <div className={styles['main']}>
       {showForm && (
@@ -129,12 +148,12 @@ export default function Profile() {
           {sameUser && (
             <div className={styles['actions']}>
               <button onClick={() => setShowForm(true)}>Update Profile</button>
-              <button onClick= {removeProfilePhoto}>Remove Profile Photo</button>
+              <button onClick={removeProfilePhoto}>Remove Profile Photo</button>
             </div>
           )}
           {!sameUser && (
             <div className={styles['actions']}>
-              <FriendStatus account={user}/>
+              <FriendStatus account={user} />
             </div>
           )}
         </div>
