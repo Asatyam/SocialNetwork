@@ -14,7 +14,6 @@ export default function CommentForm({post}){
            }
            axios.post(`http://localhost:4000/api/posts/${post._id}/comments`,{content},config)
            .then((res)=>{
-                console.log(res);
                 setContent('');
            })
            .catch(console.log);

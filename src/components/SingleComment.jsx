@@ -35,15 +35,12 @@ export default function SingleComment({comment, post}){
                 .then((res)=>{
                     setColor('white');
                 })
-                .catch((err)=>{
-                    console.log(err);
-                });
+                .catch(console.log);
             }
         });
     }
     const deleteComment = (e)=>{
 
-        console.log(comment._id, post._id)
          const token = JSON.parse(localStorage.getItem('token'));
         const config = {
             headers: { Authorization: `Bearer ${token}`}

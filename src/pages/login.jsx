@@ -43,7 +43,6 @@ export default function Login(){
             router.push('/');
             
         }).catch(err=>{
-            console.log(err.response.data.info);
             setErrors(err.response.data.info);
         })
     }

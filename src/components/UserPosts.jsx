@@ -47,7 +47,6 @@ export default function SinglePost({post}){
         axios.patch(`http://localhost:4000/api/posts/${post._id}/like`,{},config)
         .then((res)=>{
            setColor('red');
-           console.log(res);
             
         }).catch((err)=>{
             console.log(err);
@@ -56,9 +55,7 @@ export default function SinglePost({post}){
                 .then((res)=>{
                     setColor('black');
                 })
-                .catch((err)=>{
-                    console.log(err);
-                });
+                .catch(console.log);
             }
         });
     }

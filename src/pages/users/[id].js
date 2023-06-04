@@ -31,13 +31,10 @@ export default function Profile() {
       headers: { Authorization: `Bearer ${token}` },
     };
     const userid = router.query.id;
-    console.log(userid);
-    console.log('Done');
     axios
       .get(`http://localhost:4000/api/users/${userid}`, config)
       .then((res) => {
         // setPost(res.data.post);
-        console.log(res.data);
         setUser(res.data.user);
         setPosts(res.data.posts);
         setSameUser(res.data.sameUser);
@@ -52,7 +49,6 @@ export default function Profile() {
     axios
       .get(`http://localhost:4000/api/users/${userid}/likedPosts`, config)
       .then((res) => {
-        console.log(res.data);
         setLikedPosts(res.data.likes);
       })
       .catch(console.log);
@@ -78,7 +74,6 @@ export default function Profile() {
   }
   const removeProfilePhoto =(e)=>{
     const isSure = confirm('Are you sure you want to remove profile photo?');
-    console.log(isSure);
     if(isSure){
        const token = JSON.parse(localStorage.getItem('token'));
        const user = JSON.parse(localStorage.getItem('user'));

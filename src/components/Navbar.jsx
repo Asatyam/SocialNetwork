@@ -32,7 +32,6 @@ export default function Navbar(){
            }
         axios.get('http://localhost:4000/api/users',config)
         .then((res)=>{
-            console.log(res.data.users);
             setUsers(res.data.users);
         }) 
         .catch(console.log);

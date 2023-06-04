@@ -23,7 +23,6 @@ export default function UpdateProfile({user, setShowForm}){
         if(file){ 
             formData.append('file',file);  
         }
-        console.log(...formData);
         e.preventDefault();
          const token = JSON.parse(localStorage.getItem('token'));
          const user = JSON.parse(localStorage.getItem('user'));
@@ -34,17 +33,13 @@ export default function UpdateProfile({user, setShowForm}){
            axios.post(`http://localhost:4000/api/users/${user}/editProfile`,formData,config)
            .then((res)=>{
                 setShowForm(false);
-                console.log(res);
                 setFirstName('');
                 setLastName('');     
            })
-           .catch((err)=>{
-            console.log(err);
-        });
+           .catch(console.log);
     }
     const handleFileChange = (e)=>{
         setFile(e.target.files[0]);
-        console.log(e.target.files[0]);
     }
     return(
        

@@ -27,7 +27,6 @@ export default function PostForm({setShowForm}){
            }
            axios.post(`http://localhost:4000/api/posts`,formData,config)
            .then((res)=>{
-                console.log(res);
                 setContent('');
                 setShowForm(false);
            })
@@ -35,7 +34,6 @@ export default function PostForm({setShowForm}){
     }
     const handleFileChange = (e)=>{
         setFile(e.target.files[0]);
-        console.log(e.target.files[0]);
     }
     return(
         <div className = {styles['container']}>

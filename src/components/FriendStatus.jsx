@@ -52,7 +52,6 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/removeFriend`,{},config)
         .then((res)=>{
             setStatus('');
@@ -64,7 +63,6 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/sendRequest`,{},config)
         .then((res)=>{
             setStatus('requested');
@@ -76,11 +74,9 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/cancelRequest`,{},config)
         .then((res)=>{
             setStatus('');
-            console.log(res.data);
         })
         .catch(console.log);
     }
@@ -89,11 +85,9 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/acceptRequest`,{},config)
         .then((res)=>{
             setStatus('friend');
-            console.log(res.data);
         })
         .catch(console.log);
     }
@@ -102,11 +96,9 @@ export default function FriendStatus({account}){
            const config = {
                 headers: {Authorization: `Bearer ${token}`}
            }
-        console.log(config);
         axios.patch(`http://localhost:4000/api/users/${account._id}/rejectRequest`,{},config)
         .then((res)=>{
             setStatus('');
-            console.log(res.data);
         })
         .catch(console.log);
     }

@@ -36,7 +36,6 @@ export default function Signup() {
     })
   }
   const handleSubmit = (e) => {
-    console.log(form);
     e.preventDefault();
     const body = form;
      axios
@@ -48,7 +47,6 @@ export default function Signup() {
          router.push('/');
        })
        .catch((err) => {
-         console.log(err.response.data.errors[0].msg);
          setErrors(err.response.data.errors);
        });
   };

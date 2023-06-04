@@ -18,7 +18,7 @@ export default function PostDetail({post}){
         .then(res=>{
             setComments(res.data.comments);  
         }).catch(console.log);
-    })
+    },[comments,setComments,post._id])
 
     const [color,setColor] = useState('black');
 
@@ -37,7 +37,6 @@ export default function PostDetail({post}){
         axios.patch(`http://localhost:4000/api/posts/${post._id}/like`,{},config)
         .then((res)=>{
            setColor('red');
-           console.log(res);
             
         }).catch((err)=>{
             console.log(err);
