@@ -29,6 +29,7 @@
 }
 .content{
     display: inline-block;
+    text-align: start;
     color: #334155;
     font-size: 0.9rem;
     font-family: 'Source Sans Pro', 'Roboto',Arial, Helvetica, sans-serif;

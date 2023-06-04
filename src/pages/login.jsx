@@ -50,7 +50,7 @@ export default function Login(){
     return(
        <div className={`${styles['main']} ${roboto.className}` }>
             <div className={styles['text-box']}>
-                <h1 className={robotoBold.className}>Odinbook</h1>
+                <h1 className={robotoBold.className}>LetsTalk</h1>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
             </div>
             <div className={styles['form-container']}>

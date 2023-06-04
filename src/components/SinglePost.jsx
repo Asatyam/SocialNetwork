@@ -94,7 +94,7 @@ export default function SinglePost({post,user}){
     return (
         <div className={styles['container']}  >
           <div className={styles['author']}>
-            <button className='icon'><img src={post.author.image_url || '/images/profile.png'} alt={author.full_name}/></button>
+            <button className='icon'><img src={author.image_url || '/images/profile.png'} alt={author.full_name}/></button>
             <Link href={`/users/${author._id}`}>{`${author.first_name} ${author.last_name}`}</Link>
         
           </div>

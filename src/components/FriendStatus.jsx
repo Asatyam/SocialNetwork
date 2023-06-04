@@ -109,7 +109,7 @@ export default function FriendStatus({account}){
         case 'friend':
             return(
                 <>
-                <button onClick={removeFriend}> Friends ✔️</button>
+                <button onClick={removeFriend}> Friends ✅</button>
                 <button>Message</button>
                 </>
             )

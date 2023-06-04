@@ -82,7 +82,7 @@ export default function Navbar(){
     }
     return(
             <nav  className={styles['main-nav']}>
-                <h1><Link href = '/'>Odinbook</Link></h1>
+                <h1><Link href = '/'>LetsTalk</Link></h1>
                 <div className={styles['search']}>
                     <div className={styles['search-box']}>
                          <input type="search" name='search' value={search} onChange={searchUsers} placeholder="Search"/>

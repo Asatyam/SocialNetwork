@@ -14,7 +14,7 @@ export default function AddPost({setShowForm}){
             <div className='icon'>
                 <img src="/images/profile.png" alt='profile-icon'/>
             </div>
-            <button className={styles['new-post']} onClick={handleClick}>What's on your mind, Satyam? </button>
+            <button className={styles['new-post']} onClick={handleClick}>What's on your mind? </button>
             {/* <button className = 'icon'><img  src='images/gallery.png' alt='add image'/> </button> */}
         </div>
     )
