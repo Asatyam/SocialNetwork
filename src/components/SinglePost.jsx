@@ -6,12 +6,20 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import formatDate from "@/utils/formatDate";
 
-export default function SinglePost({post,user}){
+export default function SinglePost({post,user,isLike}){
     const [comments,setComments] = useState([]);
     const [sameUser, setSameUser] = useState('false');
     const [likes, setLikes] = useState([]);
     const [showLikes,setShowLikes] = useState(false);
     const router = useRouter();
+    let init;
+    if(typeof post.author ==='object'){
+        init = post.author
+    }
+    else{
+        init = user;
+    }
+    const [poster,setPoster] = useState(init);
     const author = user?user:post.author;
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
@@ -27,7 +35,13 @@ export default function SinglePost({post,user}){
         .then(res=>{
             setComments(res.data.comments);  
         }).catch(console.log);
-    },[sameUser,setSameUser,post._id,author])
+        const authorid = typeof post.author === 'object'?post.author._id : post.author;
+        axios.get(`https://socialnetwork-api-r5ve.onrender.com/api/users/${authorid}`,config)
+            .then((res)=>{
+                setPoster(res.data.user);
+            })
+            .catch(console.log);
+    },[sameUser,author._id, isLike, post.author, post._id])
 
     const showPost = (e)=>{
         router.push(`/posts/${post._id}`);
@@ -94,8 +108,8 @@ export default function SinglePost({post,user}){
     return (
         <div className={styles['container']}  >
           <div className={styles['author']}>
-            <button className='icon'><img src={author.image_url || '/images/profile.png'} alt={author.full_name}/></button>
-            <Link href={`/users/${author._id}`}>{`${author.first_name} ${author.last_name}`}</Link>
+            <button className='icon'><img src={(poster && poster.image_url) || '/images/profile.png'} alt={poster.first_name}/></button>
+            <Link href={`/users/${poster._id}`}>{`${poster.first_name} ${poster.last_name}`}</Link>
         
           </div>
           <div className={styles['content']} onClick={showPost}>

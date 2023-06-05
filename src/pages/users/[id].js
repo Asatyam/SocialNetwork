@@ -257,7 +257,7 @@ export default function Profile() {
             {likedPosts.length > 0
               ? likedPosts.map((liked) => {
                   return (
-                    <SinglePost key={liked._id} post={liked} user={user} />
+                    <SinglePost key={liked._id} post={liked} user={user} isLike = {true} />
                   );
                 })
               : 'There are no liked posts'}
