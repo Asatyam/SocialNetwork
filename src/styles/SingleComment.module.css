@@ -1,7 +1,7 @@
 .comment{
     border-bottom: 2px solid teal;
     padding: 10px;
-    min-width: 400px;
+    min-width: fit-content;
     max-width: 800px;
     margin: 10px;
     display: grid;
